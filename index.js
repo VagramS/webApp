@@ -1,4 +1,5 @@
 const express = require('express');
+const logger = require('./app/Utils/client/logger.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
