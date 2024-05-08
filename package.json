@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "express": "^4.19.2",
+    "mongodb": "^6.6.1",
     "pg": "^8.11.5",
+    "stripe": "^15.5.0",
     "winston": "^3.13.0"
   }
 }

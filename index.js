@@ -1,11 +1,11 @@
 const express = require('express');
 const logger = require('./app/Utils/client/logger.js');
+const mongo = require('./app/Utils/db/Connection_mongoDB.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const { Admin_Router } = require('./app/routes/admin/router.js');
-const { Client_Router } = require('./app/routes/client/router.js');
+const { Admin_Router, Client_Router } = require('./app/routes/mainRouter.js');
 
 // Admin router
 app.use('/admin', Admin_Router);
