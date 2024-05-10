@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 const cartRouter = require('./Cart/router');
 const menuRouter = require('./Menu/router');
