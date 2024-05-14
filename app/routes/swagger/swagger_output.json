@@ -11,75 +11,10 @@
     "http"
   ],
   "paths": {
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Admin / Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meals/add": {
-      "post": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meals/update": {
-      "patch": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meals/delete": {
-      "delete": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meals/status": {
-      "patch": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/orders/view": {
+    "/menu/categories": {
       "get": {
         "tags": [
-          "Admin / Order Manager"
+          "Client / Menu"
         ],
         "description": "",
         "responses": {
@@ -89,10 +24,10 @@
         }
       }
     },
-    "/orders/status": {
-      "patch": {
+    "/menu/meals": {
+      "get": {
         "tags": [
-          "Admin / Order Manager"
+          "Client / Menu"
         ],
         "description": "",
         "responses": {
@@ -102,12 +37,20 @@
         }
       }
     },
-    "/tables/add": {
-      "post": {
+    "/menu/meals/{categoryId}": {
+      "get": {
         "tags": [
-          "Admin / Table Manager"
+          "Client / Menu"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -115,103 +58,20 @@
         }
       }
     },
-    "/tables/update": {
-      "patch": {
+    "/product/{productId}": {
+      "get": {
         "tags": [
-          "Admin / Table Manager"
+          "Client / Product"
         ],
         "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
-        }
-      }
-    },
-    "/tables/delete": {
-      "delete": {
-        "tags": [
-          "Admin / Table Manager"
         ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/tables/generate-id": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/tables/generate-url": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/tables/generate-qr": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/toppings/update": {
-      "patch": {
-        "tags": [
-          "Admin / Toppings"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/toppings/add": {
-      "post": {
-        "tags": [
-          "Admin / Toppings"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/toppings/delete": {
-      "delete": {
-        "tags": [
-          "Admin / Toppings"
-        ],
-        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -342,66 +202,6 @@
         }
       }
     },
-    "/menu/categories": {
-      "get": {
-        "tags": [
-          "Client / Menu"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/menu/meals": {
-      "get": {
-        "tags": [
-          "Client / Menu"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/menu/meals/{categoryId}": {
-      "get": {
-        "tags": [
-          "Client / Menu"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/order/confirmation": {
-      "get": {
-        "tags": [
-          "Client / Order"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/payment/stripe": {
       "post": {
         "tags": [
@@ -467,20 +267,259 @@
         }
       }
     },
-    "/product/{productId}": {
+    "/order/confirmation": {
       "get": {
         "tags": [
-          "Client / Product"
+          "Client / Order"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "type": "string"
+        "responses": {
+          "200": {
+            "description": "OK"
           }
+        }
+      }
+    },
+    "/menu/create": {
+      "post": {
+        "tags": [
+          "Admin / Menu Manager"
         ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/update": {
+      "patch": {
+        "tags": [
+          "Admin / Menu Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Menu Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/update": {
+      "patch": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/add": {
+      "post": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/meals/add": {
+      "post": {
+        "tags": [
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/meals/update": {
+      "patch": {
+        "tags": [
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/meals/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/meals/status": {
+      "patch": {
+        "tags": [
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/view": {
+      "get": {
+        "tags": [
+          "Admin / Order Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/status": {
+      "patch": {
+        "tags": [
+          "Admin / Order Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Admin / Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/add": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/update": {
+      "patch": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-id": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-url": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-qr": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
