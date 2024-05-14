@@ -1,5 +1,8 @@
 --DROP TABLE IF EXISTS payments, order_item_toppings, cart_item_toppings, order_items, cart_items, orders, cart, meals, menu_categories, toppings, admin_users, tables;
 
+CREATE DATABASE webApp;
+USE webApp;
+
 -- Table for Menu Categories
 CREATE TABLE menu_categories (
     category_id SERIAL PRIMARY KEY,

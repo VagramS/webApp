@@ -11,29 +11,12 @@
     "http"
   ],
   "paths": {
-    "/auth/register": {
+    "/auth/login": {
       "post": {
         "tags": [
-          "Admin"
+          "Admin / Auth"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -41,10 +24,10 @@
         }
       }
     },
-    "/auth/login": {
-      "get": {
+    "/meals/add": {
+      "post": {
         "tags": [
-          "Admin"
+          "Admin / Meal Manager"
         ],
         "description": "",
         "responses": {
@@ -54,29 +37,12 @@
         }
       }
     },
-    "/auth/update": {
-      "put": {
+    "/meals/update": {
+      "patch": {
         "tags": [
-          "Admin"
+          "Admin / Meal Manager"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -84,24 +50,435 @@
         }
       }
     },
-    "/auth/delete": {
+    "/meals/delete": {
       "delete": {
         "tags": [
-          "Admin"
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/meals/status": {
+      "patch": {
+        "tags": [
+          "Admin / Meal Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/view": {
+      "get": {
+        "tags": [
+          "Admin / Order Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/status": {
+      "patch": {
+        "tags": [
+          "Admin / Order Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/add": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/update": {
+      "patch": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-id": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-url": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/tables/generate-qr": {
+      "post": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/update": {
+      "patch": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/add": {
+      "post": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/toppings/delete": {
+      "delete": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/add/{productId}": {
+      "post": {
+        "tags": [
+          "Client / Cart"
         ],
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/": {
+      "get": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/remove/{productId}": {
+      "delete": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/update/{productId}": {
+      "patch": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/Comment/{productId}": {
+      "post": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/total": {
+      "get": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cart/tip": {
+      "post": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/categories": {
+      "get": {
+        "tags": [
+          "Client / Menu"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/meals": {
+      "get": {
+        "tags": [
+          "Client / Menu"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/meals/{categoryId}": {
+      "get": {
+        "tags": [
+          "Client / Menu"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order/confirmation": {
+      "get": {
+        "tags": [
+          "Client / Order"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/stripe": {
+      "post": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/complete": {
+      "post": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/applepay": {
+      "post": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/status": {
+      "post": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/confirmation": {
+      "get": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/product/{productId}": {
+      "get": {
+        "tags": [
+          "Client / Product"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

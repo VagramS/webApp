@@ -2,7 +2,6 @@
   "name": "webapp",
   "version": "1.0.0",
   "main": "index.js",
-
   "scripts": {
     "dev": "nodemon src/index.js"
   },
@@ -22,6 +21,7 @@
   },
   "dependencies": {
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
     "mongodb": "^6.6.1",
     "pg": "^8.11.5",
     "stripe": "^15.5.0",
@@ -29,5 +29,5 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.13.0"
-  } 
+  }
 }

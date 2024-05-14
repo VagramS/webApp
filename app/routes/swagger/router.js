@@ -17,7 +17,7 @@ const doc = {
 const outputFile = './app/routes/swagger/swagger_output.json';
 const endpointsFiles = ['app/routes/admin/router.js', 'app/routes/client/router.js'];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+//swaggerAutogen(outputFile, endpointsFiles, doc);
 
 router.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 

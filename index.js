@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('./app/Utils/client/logger.js');
-const mongo = require('./app/Utils/db/Connection_mongoDB.js');
+const mongoDB = require('./app/Utils/db/Connection_mongoDB.js');
+const postgreSQL = require('./app/Utils/db/Connection_postgreSQL.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
