@@ -1,26 +1,26 @@
 const router = require('express').Router();
 
-// Create meal
 router.post('/add', (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
+    // #swagger.description = 'Allow admin to add a new meal'
     res.send('Add a new meal');
 });
 
-// Update meal
 router.patch('/update', (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
+    // #swagger.description = 'Allow admin to update a meal'
     res.send('Update a meal');
 });
 
-// Delete meal
 router.delete('/delete', (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
+    // #swagger.description = 'Allow admin to delete a meal'
     res.send('Delete a meal');
 });
 
-// Ability to mark meals as active or inactive.
 router.patch('/status', (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
+    // #swagger.description = 'Allow admin to update meal status'
     res.send('Update meal status');
 });
 

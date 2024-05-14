@@ -23,6 +23,7 @@
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "mongodb": "^6.6.1",
+    "mongoose": "^8.3.4",
     "pg": "^8.11.5",
     "stripe": "^15.5.0",
     "swagger-autogen": "^2.23.7",

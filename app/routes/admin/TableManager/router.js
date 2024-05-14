@@ -1,38 +1,38 @@
 const router = require('express').Router();
 
-// Add a new table
 router.post('/add', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Allow admin to add a new table'
     res.send('Add a new table');
 });
 
-// Update table
 router.patch('/update', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Allow admin to update a table'
     res.send('Update a table');
 });
 
-// Delete table
 router.delete('/delete', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Allow admin to delete a table'
     res.send('Delete a table');
 });
 
-// Generate a unique table ID for each table.
 router.post('/generate-id', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Generate a unique table ID'
     res.send('Generate a unique table ID');
 });
 
-// Generate a unique URL for the menu page with the embedded table ID.
 router.post('/generate-url', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Generate a unique URL for the menu page'
     res.send('Generate a unique URL');
 });
 
-//Generate QR codes with the unique URL for each table.
 router.post('/generate-qr', (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
+    // #swagger.description = 'Generate QR codes'
     res.send('Generate QR codes');
 });
 

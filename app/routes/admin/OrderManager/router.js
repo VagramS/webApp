@@ -1,14 +1,14 @@
 const router = require('express').Router();
 
-//View all active orders in real-time.
 router.get('/view', (req, res) => {
     // #swagger.tags = ['Admin / Order Manager']
+    // #swagger.description = 'View all active orders in real-time'
     res.send('View all active orders');
 });
 
-//Ability to mark orders as fulfilled or cancelled.
 router.patch('/status', (req, res) => {
     // #swagger.tags = ['Admin / Order Manager']
+    // #swagger.description = 'Mark orders as fulfilled or cancelled'
     res.send('Update order status');
 });
 

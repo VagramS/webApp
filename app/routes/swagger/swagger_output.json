@@ -16,7 +16,7 @@
         "tags": [
           "Client / Menu"
         ],
-        "description": "",
+        "description": "Display all available categories (Snacks, Salads, Main, Drinks… etc).",
         "responses": {
           "200": {
             "description": "OK"
@@ -29,7 +29,7 @@
         "tags": [
           "Client / Menu"
         ],
-        "description": "",
+        "description": "Display all available meals grouped by categories.",
         "responses": {
           "200": {
             "description": "OK"
@@ -42,13 +42,36 @@
         "tags": [
           "Client / Menu"
         ],
-        "description": "",
+        "description": "Allow users to filter meals by category.",
         "parameters": [
           {
             "name": "categoryId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/menu/meals/{mealId}": {
+      "get": {
+        "tags": [
+          "Client / Menu"
+        ],
+        "description": "Allow users to view details of a specific meal.",
+        "parameters": [
+          {
+            "name": "mealId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Meal ID"
           }
         ],
         "responses": {
@@ -63,13 +86,14 @@
         "tags": [
           "Client / Product"
         ],
-        "description": "",
+        "description": "Display detailed information about a selected meal.",
         "parameters": [
           {
             "name": "productId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Product ID"
           }
         ],
         "responses": {
@@ -84,13 +108,14 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Allow users to add meals to the cart from both the menu page and the product page.",
         "parameters": [
           {
             "name": "productId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "Integer",
+            "description": "Product ID"
           }
         ],
         "responses": {
@@ -105,7 +130,7 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Display the selected items in the cart.",
         "responses": {
           "200": {
             "description": "OK"
@@ -118,13 +143,14 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Ability to remove items from the cart.",
         "parameters": [
           {
             "name": "productId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "Integer",
+            "description": "Product ID"
           }
         ],
         "responses": {
@@ -139,13 +165,14 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Ability to adjust quantity of items from the cart.",
         "parameters": [
           {
             "name": "productId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "Integer",
+            "description": "Product ID"
           }
         ],
         "responses": {
@@ -155,20 +182,12 @@
         }
       }
     },
-    "/cart/Comment/{productId}": {
+    "/cart/Comment": {
       "post": {
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "description": "Ability to add Instructions / Comments (Text field)",
         "responses": {
           "200": {
             "description": "OK"
@@ -181,7 +200,7 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Display the total cost of the order.",
         "responses": {
           "200": {
             "description": "OK"
@@ -194,7 +213,7 @@
         "tags": [
           "Client / Cart"
         ],
-        "description": "",
+        "description": "Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.",
         "responses": {
           "200": {
             "description": "OK"
@@ -207,7 +226,7 @@
         "tags": [
           "Client / Payment"
         ],
-        "description": "",
+        "description": "Allow users to pay via Stripe.",
         "responses": {
           "200": {
             "description": "OK"
@@ -220,7 +239,7 @@
         "tags": [
           "Client / Payment"
         ],
-        "description": "",
+        "description": "Allow users to enter payment details and complete the transaction.",
         "responses": {
           "200": {
             "description": "OK"
@@ -233,7 +252,7 @@
         "tags": [
           "Client / Payment"
         ],
-        "description": "",
+        "description": "Allow users to pay via Apple Pay.",
         "responses": {
           "200": {
             "description": "OK"
@@ -246,7 +265,7 @@
         "tags": [
           "Client / Payment"
         ],
-        "description": "",
+        "description": "Handle successful and failed payment transactions.",
         "responses": {
           "200": {
             "description": "OK"
@@ -259,7 +278,7 @@
         "tags": [
           "Client / Payment"
         ],
-        "description": "",
+        "description": "Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.",
         "responses": {
           "200": {
             "description": "OK"
@@ -272,7 +291,7 @@
         "tags": [
           "Client / Order"
         ],
-        "description": "",
+        "description": "Display a confirmation message to the client after a successful payment.",
         "responses": {
           "200": {
             "description": "OK"
@@ -285,7 +304,7 @@
         "tags": [
           "Admin / Menu Manager"
         ],
-        "description": "",
+        "description": "Create a menu category",
         "responses": {
           "200": {
             "description": "OK"
@@ -298,7 +317,7 @@
         "tags": [
           "Admin / Menu Manager"
         ],
-        "description": "",
+        "description": "Update a menu category",
         "responses": {
           "200": {
             "description": "OK"
@@ -311,7 +330,7 @@
         "tags": [
           "Admin / Menu Manager"
         ],
-        "description": "",
+        "description": "Delete a menu category",
         "responses": {
           "200": {
             "description": "OK"
@@ -324,7 +343,7 @@
         "tags": [
           "Admin / Toppings"
         ],
-        "description": "",
+        "description": "Allow admin to update add-on/toppings options",
         "responses": {
           "200": {
             "description": "OK"
@@ -337,7 +356,7 @@
         "tags": [
           "Admin / Toppings"
         ],
-        "description": "",
+        "description": "Allow admin to create add-on/toppings options",
         "responses": {
           "200": {
             "description": "OK"
@@ -350,7 +369,7 @@
         "tags": [
           "Admin / Toppings"
         ],
-        "description": "",
+        "description": "Allow admin to delete add-on/toppings options",
         "responses": {
           "200": {
             "description": "OK"
@@ -363,7 +382,7 @@
         "tags": [
           "Admin / Meal Manager"
         ],
-        "description": "",
+        "description": "Allow admin to add a new meal",
         "responses": {
           "200": {
             "description": "OK"
@@ -376,7 +395,7 @@
         "tags": [
           "Admin / Meal Manager"
         ],
-        "description": "",
+        "description": "Allow admin to update a meal",
         "responses": {
           "200": {
             "description": "OK"
@@ -389,7 +408,7 @@
         "tags": [
           "Admin / Meal Manager"
         ],
-        "description": "",
+        "description": "Allow admin to delete a meal",
         "responses": {
           "200": {
             "description": "OK"
@@ -402,7 +421,7 @@
         "tags": [
           "Admin / Meal Manager"
         ],
-        "description": "",
+        "description": "Allow admin to update meal status",
         "responses": {
           "200": {
             "description": "OK"
@@ -415,7 +434,7 @@
         "tags": [
           "Admin / Order Manager"
         ],
-        "description": "",
+        "description": "View all active orders in real-time",
         "responses": {
           "200": {
             "description": "OK"
@@ -428,7 +447,7 @@
         "tags": [
           "Admin / Order Manager"
         ],
-        "description": "",
+        "description": "Mark orders as fulfilled or cancelled",
         "responses": {
           "200": {
             "description": "OK"
@@ -441,7 +460,7 @@
         "tags": [
           "Admin / Auth"
         ],
-        "description": "",
+        "description": "Secure login system for admin users.",
         "responses": {
           "200": {
             "description": "OK"
@@ -454,7 +473,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Allow admin to add a new table",
         "responses": {
           "200": {
             "description": "OK"
@@ -467,7 +486,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Allow admin to update a table",
         "responses": {
           "200": {
             "description": "OK"
@@ -480,7 +499,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Allow admin to delete a table",
         "responses": {
           "200": {
             "description": "OK"
@@ -493,7 +512,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Generate a unique table ID",
         "responses": {
           "200": {
             "description": "OK"
@@ -506,7 +525,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Generate a unique URL for the menu page",
         "responses": {
           "200": {
             "description": "OK"
@@ -519,7 +538,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "",
+        "description": "Generate QR codes",
         "responses": {
           "200": {
             "description": "OK"
