@@ -19,6 +19,4 @@ function connectToPostgreSQL() {
     });
 }
 
-//connectToPostgreSQL();
-
-module.exports = {client};
+module.exports = {connectToPostgreSQL};

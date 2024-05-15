@@ -1,9 +1,6 @@
 const router = require('express').Router();
+const LoginService = require('./LoginService');
 
-router.post('/login', (req, res) => {
-    // #swagger.tags = ['Admin / Auth']
-    // #swagger.description = 'Secure login system for admin users.'
-    res.send('Admin login');
-});
+router.post('/login', LoginService.Login);
 
 module.exports = router;

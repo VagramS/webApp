@@ -1,24 +1,10 @@
 const router = require('express').Router();
+const ToppingsService = require('./ToppingService');
 
-// Update topping
-router.patch('/update', (req, res) => {
-    // #swagger.tags = ['Admin / Toppings']
-    // #swagger.description = 'Allow admin to update add-on/toppings options'
-    res.send('Update a topping');
-});
+router.post('/create', ToppingsService.CreateTopping);
 
-// Create topping
-router.post('/add', (req, res) => {
-    // #swagger.tags = ['Admin / Toppings']
-    // #swagger.description = 'Allow admin to create add-on/toppings options'
-    res.send('Add a new topping');
-});
+router.patch('/update', ToppingsService.UpdateTopping);
 
-// Delete topping
-router.delete('/delete', (req, res) => {
-    // #swagger.tags = ['Admin / Toppings']
-    // #swagger.description = 'Allow admin to delete add-on/toppings options'
-    res.send('Delete a topping');
-});
+router.delete('/delete', ToppingsService.DeleteTopping);
 
 module.exports = router;

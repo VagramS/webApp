@@ -1,27 +1,12 @@
 const router = require('express').Router();
+const MealService = require('./MealService');
 
-router.post('/add', (req, res) => {
-    // #swagger.tags = ['Admin / Meal Manager']
-    // #swagger.description = 'Allow admin to add a new meal'
-    res.send('Add a new meal');
-});
+router.post('/add', MealService.AddNewMeal);
 
-router.patch('/update', (req, res) => {
-    // #swagger.tags = ['Admin / Meal Manager']
-    // #swagger.description = 'Allow admin to update a meal'
-    res.send('Update a meal');
-});
+router.patch('/update', MealService.UpdateMeal);
 
-router.delete('/delete', (req, res) => {
-    // #swagger.tags = ['Admin / Meal Manager']
-    // #swagger.description = 'Allow admin to delete a meal'
-    res.send('Delete a meal');
-});
+router.delete('/delete', MealService.DeleteMeal);
 
-router.patch('/status', (req, res) => {
-    // #swagger.tags = ['Admin / Meal Manager']
-    // #swagger.description = 'Allow admin to update meal status'
-    res.send('Update meal status');
-});
+router.patch('/status', MealService.UpdateMealStatus);
 
 module.exports = router;

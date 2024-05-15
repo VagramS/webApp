@@ -1,39 +1,16 @@
 const router = require('express').Router();
+const TableService = require('./TableService');
 
-router.post('/add', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Allow admin to add a new table'
-    res.send('Add a new table');
-});
+router.post('/create', TableService.CreateTable);
 
-router.patch('/update', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Allow admin to update a table'
-    res.send('Update a table');
-});
+router.patch('/update', TableService.UpdateTable);
 
-router.delete('/delete', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Allow admin to delete a table'
-    res.send('Delete a table');
-});
+router.delete('/delete', TableService.DeleteTable);
 
-router.post('/generate-id', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate a unique table ID'
-    res.send('Generate a unique table ID');
-});
+router.post('/generate-id', TableService.GenerateUniqueId);
 
-router.post('/generate-url', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate a unique URL for the menu page'
-    res.send('Generate a unique URL');
-});
+router.post('/generate-url', TableService.GenerateUniqueUrl);
 
-router.post('/generate-qr', (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate QR codes'
-    res.send('Generate QR codes');
-});
+router.post('/generate-qr', TableService.GenerateQRCode);
 
 module.exports = router;

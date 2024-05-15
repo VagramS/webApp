@@ -20,6 +20,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -33,6 +36,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -55,6 +61,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -77,6 +86,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -295,6 +307,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -338,12 +356,12 @@
         }
       }
     },
-    "/toppings/update": {
-      "patch": {
+    "/toppings/create": {
+      "post": {
         "tags": [
           "Admin / Toppings"
         ],
-        "description": "Allow admin to update add-on/toppings options",
+        "description": "Allow admin to create add-on/toppings options",
         "responses": {
           "200": {
             "description": "OK"
@@ -351,12 +369,12 @@
         }
       }
     },
-    "/toppings/add": {
-      "post": {
+    "/toppings/update": {
+      "patch": {
         "tags": [
           "Admin / Toppings"
         ],
-        "description": "Allow admin to create add-on/toppings options",
+        "description": "Allow admin to update add-on/toppings options",
         "responses": {
           "200": {
             "description": "OK"
@@ -468,7 +486,7 @@
         }
       }
     },
-    "/tables/add": {
+    "/tables/create": {
       "post": {
         "tags": [
           "Admin / Table Manager"
@@ -525,7 +543,7 @@
         "tags": [
           "Admin / Table Manager"
         ],
-        "description": "Generate a unique URL for the menu page",
+        "description": "Generate a unique URL for the table page",
         "responses": {
           "200": {
             "description": "OK"
