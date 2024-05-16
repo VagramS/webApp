@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const TableService = require('./TableService');
 
 router.post('/create', TableService.CreateTable);

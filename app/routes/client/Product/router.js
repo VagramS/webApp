@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const ProductService = require('./ProductService');
 
 router.get('/:productId', ProductService.DisplayProductById);

@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDoc = require('./swagger_output.json');
 const options = {disableLogs: true};

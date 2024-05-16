@@ -1,12 +1,12 @@
 const schemas = require('../../../Utils/db/Schemas');
-const {BadRequestError, NotFoundError, InternalServerError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
+const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
 
-const AddToCart = async (req, res, next) => {
+const AddToCart = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Allow users to add meals to the cart from both the menu page and the product page.'
     // #swagger.parameters['productId'] = { description: 'Product ID', type: 'Integer'}
     // #swagger.summary = 'Add a product to the cart'
-    try {
+    
         // Find the product
         const { productId, userId } = req.body;
         const product = await Product.findById(productId);
@@ -35,19 +35,17 @@ const AddToCart = async (req, res, next) => {
         await cart.save();
 
         res.status(200).json({ message: 'Product added to cart', cart });
-    } catch (error) {
-        next(new UnauthorizedError("Some error", [12]));
-    }
+
 };
 
-const ShowCart = async (req, res, next) => {
+const ShowCart = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Display the selected items in the cart.'
     // #swagger.summary = 'Show the cart'
     res.send('Cart');
 };
 
-const RemoveFromCart = async (req, res, next) => {
+const RemoveFromCart = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Ability to remove items from the cart.'
     // #swagger.parameters['productId'] = { description: 'Product ID', type: 'Integer'}
@@ -55,7 +53,7 @@ const RemoveFromCart = async (req, res, next) => {
     res.send('Product removed from cart');
 };
 
-const AdjustQuantity = async (req, res, next) => {
+const AdjustQuantity = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Ability to adjust quantity of items from the cart.'
     // #swagger.parameters['productId'] = { description: 'Product ID', type: 'Integer'}
@@ -63,21 +61,21 @@ const AdjustQuantity = async (req, res, next) => {
     res.send('Product quantity updated');
 };
 
-const AddComment = async (req, res, next) => {
+const AddComment = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Ability to add Instructions / Comments (Text field)'
     // #swagger.summary = 'Add a comment to the order'
     res.send('Comment added');
 };
 
-const DisplayTotal = async (req, res, next) => {
+const DisplayTotal = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Display the total cost of the order.'
     // #swagger.summary = 'Display the total cost'
     res.send('Total cost');
 };
 
-const Tip = async (req, res, next) => {
+const Tip = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.'
     // #swagger.parameters['tipAmount'] = { description: 'Tip amount', type: 'Integer'}

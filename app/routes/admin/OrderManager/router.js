@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const OrderService = require('./OrderService');
 
 router.get('/view', OrderService.ViewAllActiveOrders);

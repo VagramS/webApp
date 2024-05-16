@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const CartService = require('./CartService');
 
 router.post('/add/:productId', CartService.AddToCart);

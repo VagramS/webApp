@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const ToppingsService = require('./ToppingService');
 
 router.post('/create', ToppingsService.CreateTopping);

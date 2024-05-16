@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const MealService = require('./MealService');
 
 router.post('/add', MealService.AddNewMeal);

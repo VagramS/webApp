@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 
 const cartRouter = require('./Cart/router');
 const menuRouter = require('./Menu/router');

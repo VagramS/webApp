@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const MenuService = require('./MenuService');
 
 router.post('/create', MenuService.CreateMenuCategory);

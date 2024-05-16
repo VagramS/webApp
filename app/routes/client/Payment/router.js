@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express-promise-router')();
 const PaymentService = require('./PaymentService');
 
 router.post('/stripe', PaymentService.PayWithStripe);
