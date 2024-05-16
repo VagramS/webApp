@@ -5,6 +5,7 @@ const DisplayProductById = async (req, res, next) => {
     // #swagger.tags = ["Client / Product"]
     // #swagger.description = "Display detailed information about a selected meal."
     // #swagger.parameters['productId'] = {description: 'Product ID'}
+    // #swagger.summary = 'Display product details'
     res.send('Product details');
 };
 

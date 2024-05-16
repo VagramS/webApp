@@ -6,7 +6,8 @@ const {BadRequestError, NotFoundError, InternalServerError} = require('../../../
 
 const Confirmation_Message = async (req, res, next) => {
     // #swagger.tags = ['Client / Order']\
-    // #swagger.description = 'Display a confirmation message to the client after a successful payment.'\
+    // #swagger.description = 'Display a confirmation message to the client after a successful payment.'
+    // #swagger.summary = 'Display a confirmation message'
     try {
         const orderId = req.params.orderId; // Assuming the order ID is passed as a URL parameter
 

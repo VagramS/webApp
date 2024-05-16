@@ -12,11 +12,11 @@ const { Admin_Router, Client_Router, Swagger_Router } = require('./app/routes/ma
 // Connect to MongoDB
 mongoose.connect();
 
-// Admin router
-app.use('/admin', Admin_Router);
-
 // Client router
 app.use('/client', Client_Router);
+
+// Admin router
+app.use('/admin', Admin_Router);
 
 // Swagger router
 app.use('/api-docs', Swagger_Router);

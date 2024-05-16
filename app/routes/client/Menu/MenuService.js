@@ -4,6 +4,7 @@ const {BadRequestError, NotFoundError, InternalServerError} = require('../../../
 const DisplayCategories = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Display all available categories (Snacks, Salads, Main, Drinks… etc).'
+    // #swagger.summary = 'Display all categories'
     try {
         const categories = await schemas.menuCategory.find();
         res.status(200).json({status: 'OK', data: categories});
@@ -15,10 +16,11 @@ const DisplayCategories = async (req, res, next) => {
 const DisplayMeals = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Display all available meals grouped by categories.'
+    // #swagger.summary = 'Display all meals'
+    res.send('Meals');
     try {
         const meals = await schemas.meal.find();
         res.status(200).json(meals);
-        res.send('Meals');
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -28,6 +30,7 @@ const FilterByCategory = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to filter meals by category.'
     // #swagger.parameters['categoryId'] = { description: 'Category ID' }
+    // #swagger.summary = 'Filter meals by category'
     try {
         const meals = await schemas.meal.find({categoryId: req.params.categoryId});
         res.status(200).json(meals);
@@ -41,6 +44,7 @@ const ViewDetailsById = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to view details of a specific meal.'
     // #swagger.parameters['mealId'] = { description: 'Meal ID' }
+    // #swagger.summary = 'View meal details'
     try{
         const meal = await schemas.meal.findById(req.params.mealId);
         if (!meal) {

@@ -11,11 +11,12 @@
     "http"
   ],
   "paths": {
-    "/menu/categories": {
+    "/client/menu/categories": {
       "get": {
         "tags": [
           "Client / Menu"
         ],
+        "summary": "Display all categories",
         "description": "Display all available categories (Snacks, Salads, Main, Drinks… etc).",
         "responses": {
           "200": {
@@ -27,11 +28,12 @@
         }
       }
     },
-    "/menu/meals": {
+    "/client/menu/meals": {
       "get": {
         "tags": [
           "Client / Menu"
         ],
+        "summary": "Display all meals",
         "description": "Display all available meals grouped by categories.",
         "responses": {
           "200": {
@@ -43,11 +45,12 @@
         }
       }
     },
-    "/menu/meals/{categoryId}": {
+    "/client/menu/meals/{categoryId}": {
       "get": {
         "tags": [
           "Client / Menu"
         ],
+        "summary": "Filter meals by category",
         "description": "Allow users to filter meals by category.",
         "parameters": [
           {
@@ -68,11 +71,12 @@
         }
       }
     },
-    "/menu/meals/{mealId}": {
+    "/client/menu/meals/{mealId}": {
       "get": {
         "tags": [
           "Client / Menu"
         ],
+        "summary": "View meal details",
         "description": "Allow users to view details of a specific meal.",
         "parameters": [
           {
@@ -93,11 +97,12 @@
         }
       }
     },
-    "/product/{productId}": {
+    "/client/product/{productId}": {
       "get": {
         "tags": [
           "Client / Product"
         ],
+        "summary": "Display product details",
         "description": "Display detailed information about a selected meal.",
         "parameters": [
           {
@@ -115,11 +120,12 @@
         }
       }
     },
-    "/cart/add/{productId}": {
+    "/client/cart/add/{productId}": {
       "post": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Add a product to the cart",
         "description": "Allow users to add meals to the cart from both the menu page and the product page.",
         "parameters": [
           {
@@ -152,11 +158,12 @@
         }
       }
     },
-    "/cart/": {
+    "/client/cart/": {
       "get": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Show the cart",
         "description": "Display the selected items in the cart.",
         "responses": {
           "200": {
@@ -165,11 +172,12 @@
         }
       }
     },
-    "/cart/remove/{productId}": {
+    "/client/cart/remove/{productId}": {
       "delete": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Remove a product from the cart",
         "description": "Ability to remove items from the cart.",
         "parameters": [
           {
@@ -187,11 +195,12 @@
         }
       }
     },
-    "/cart/update/{productId}": {
+    "/client/cart/update/{productId}": {
       "patch": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Adjust the quantity of a product in the cart",
         "description": "Ability to adjust quantity of items from the cart.",
         "parameters": [
           {
@@ -209,11 +218,12 @@
         }
       }
     },
-    "/cart/Comment": {
+    "/client/cart/Comment": {
       "post": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Add a comment to the order",
         "description": "Ability to add Instructions / Comments (Text field)",
         "responses": {
           "200": {
@@ -222,11 +232,12 @@
         }
       }
     },
-    "/cart/total": {
+    "/client/cart/total": {
       "get": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Display the total cost",
         "description": "Display the total cost of the order.",
         "responses": {
           "200": {
@@ -235,12 +246,21 @@
         }
       }
     },
-    "/cart/tip": {
+    "/client/cart/tip": {
       "post": {
         "tags": [
           "Client / Cart"
         ],
+        "summary": "Add a tip to the order",
         "description": "Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.",
+        "parameters": [
+          {
+            "name": "tipAmount",
+            "description": "Tip amount",
+            "type": "Integer",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -248,11 +268,12 @@
         }
       }
     },
-    "/payment/stripe": {
+    "/client/payment/stripe": {
       "post": {
         "tags": [
           "Client / Payment"
         ],
+        "summary": "Pay with Stripe",
         "description": "Allow users to pay via Stripe.",
         "responses": {
           "200": {
@@ -261,11 +282,12 @@
         }
       }
     },
-    "/payment/complete": {
+    "/client/payment/complete": {
       "post": {
         "tags": [
           "Client / Payment"
         ],
+        "summary": "Complete payment",
         "description": "Allow users to enter payment details and complete the transaction.",
         "responses": {
           "200": {
@@ -274,11 +296,12 @@
         }
       }
     },
-    "/payment/applepay": {
+    "/client/payment/applepay": {
       "post": {
         "tags": [
           "Client / Payment"
         ],
+        "summary": "Pay with Apple Pay",
         "description": "Allow users to pay via Apple Pay.",
         "responses": {
           "200": {
@@ -287,11 +310,12 @@
         }
       }
     },
-    "/payment/status": {
+    "/client/payment/status": {
       "post": {
         "tags": [
           "Client / Payment"
         ],
+        "summary": "Show payment status",
         "description": "Handle successful and failed payment transactions.",
         "responses": {
           "200": {
@@ -300,11 +324,12 @@
         }
       }
     },
-    "/payment/confirmation": {
+    "/client/payment/confirmation": {
       "get": {
         "tags": [
           "Client / Payment"
         ],
+        "summary": "Display payment confirmation",
         "description": "Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.",
         "responses": {
           "200": {
@@ -313,11 +338,12 @@
         }
       }
     },
-    "/order/confirmation": {
+    "/client/order/confirmation": {
       "get": {
         "tags": [
           "Client / Order"
         ],
+        "summary": "Display a confirmation message",
         "description": "Display a confirmation message to the client after a successful payment.",
         "responses": {
           "200": {
@@ -332,11 +358,12 @@
         }
       }
     },
-    "/menu/create": {
+    "/admin/menu/create": {
       "post": {
         "tags": [
           "Admin / Menu Manager"
         ],
+        "summary": "Create a menu category",
         "description": "Create a menu category",
         "responses": {
           "200": {
@@ -345,11 +372,12 @@
         }
       }
     },
-    "/menu/update": {
+    "/admin/menu/update": {
       "patch": {
         "tags": [
           "Admin / Menu Manager"
         ],
+        "summary": "Update a menu category",
         "description": "Update a menu category",
         "responses": {
           "200": {
@@ -358,11 +386,12 @@
         }
       }
     },
-    "/menu/delete": {
+    "/admin/menu/delete": {
       "delete": {
         "tags": [
           "Admin / Menu Manager"
         ],
+        "summary": "Delete a menu category",
         "description": "Delete a menu category",
         "responses": {
           "200": {
@@ -371,11 +400,12 @@
         }
       }
     },
-    "/toppings/create": {
+    "/admin/toppings/create": {
       "post": {
         "tags": [
           "Admin / Toppings"
         ],
+        "summary": "Create a new topping",
         "description": "Allow admin to create add-on/toppings options",
         "responses": {
           "200": {
@@ -384,11 +414,12 @@
         }
       }
     },
-    "/toppings/update": {
+    "/admin/toppings/update": {
       "patch": {
         "tags": [
           "Admin / Toppings"
         ],
+        "summary": "Update a topping",
         "description": "Allow admin to update add-on/toppings options",
         "responses": {
           "200": {
@@ -397,11 +428,12 @@
         }
       }
     },
-    "/toppings/delete": {
+    "/admin/toppings/delete": {
       "delete": {
         "tags": [
           "Admin / Toppings"
         ],
+        "summary": "Delete a topping",
         "description": "Allow admin to delete add-on/toppings options",
         "responses": {
           "200": {
@@ -410,11 +442,12 @@
         }
       }
     },
-    "/meals/add": {
+    "/admin/meals/add": {
       "post": {
         "tags": [
           "Admin / Meal Manager"
         ],
+        "summary": "Add a new meal",
         "description": "Allow admin to add a new meal",
         "responses": {
           "200": {
@@ -423,11 +456,12 @@
         }
       }
     },
-    "/meals/update": {
+    "/admin/meals/update": {
       "patch": {
         "tags": [
           "Admin / Meal Manager"
         ],
+        "summary": "Update a meal",
         "description": "Allow admin to update a meal",
         "responses": {
           "200": {
@@ -436,11 +470,12 @@
         }
       }
     },
-    "/meals/delete": {
+    "/admin/meals/delete": {
       "delete": {
         "tags": [
           "Admin / Meal Manager"
         ],
+        "summary": "Delete a meal",
         "description": "Allow admin to delete a meal",
         "responses": {
           "200": {
@@ -449,11 +484,12 @@
         }
       }
     },
-    "/meals/status": {
+    "/admin/meals/status": {
       "patch": {
         "tags": [
           "Admin / Meal Manager"
         ],
+        "summary": "Update meal status",
         "description": "Allow admin to update meal status",
         "responses": {
           "200": {
@@ -462,11 +498,12 @@
         }
       }
     },
-    "/orders/view": {
+    "/admin/orders/view": {
       "get": {
         "tags": [
           "Admin / Order Manager"
         ],
+        "summary": "View all active orders",
         "description": "View all active orders in real-time",
         "responses": {
           "200": {
@@ -475,11 +512,12 @@
         }
       }
     },
-    "/orders/status": {
+    "/admin/orders/status": {
       "patch": {
         "tags": [
           "Admin / Order Manager"
         ],
+        "summary": "Update order status",
         "description": "Mark orders as fulfilled or cancelled",
         "responses": {
           "200": {
@@ -488,11 +526,12 @@
         }
       }
     },
-    "/auth/login": {
+    "/admin/auth/login": {
       "post": {
         "tags": [
           "Admin / Auth"
         ],
+        "summary": "Admin login",
         "description": "Secure login system for admin users.",
         "responses": {
           "200": {
@@ -501,11 +540,12 @@
         }
       }
     },
-    "/tables/create": {
+    "/admin/tables/create": {
       "post": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Add a new table",
         "description": "Allow admin to add a new table",
         "responses": {
           "200": {
@@ -514,11 +554,12 @@
         }
       }
     },
-    "/tables/update": {
+    "/admin/tables/update": {
       "patch": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Update a table",
         "description": "Allow admin to update a table",
         "responses": {
           "200": {
@@ -527,11 +568,12 @@
         }
       }
     },
-    "/tables/delete": {
+    "/admin/tables/delete": {
       "delete": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Delete a table",
         "description": "Allow admin to delete a table",
         "responses": {
           "200": {
@@ -540,11 +582,12 @@
         }
       }
     },
-    "/tables/generate-id": {
+    "/admin/tables/generate-id": {
       "post": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Generate a unique table ID",
         "description": "Generate a unique table ID",
         "responses": {
           "200": {
@@ -553,11 +596,12 @@
         }
       }
     },
-    "/tables/generate-url": {
+    "/admin/tables/generate-url": {
       "post": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Generate a unique URL",
         "description": "Generate a unique URL for the table page",
         "responses": {
           "200": {
@@ -566,11 +610,12 @@
         }
       }
     },
-    "/tables/generate-qr": {
+    "/admin/tables/generate-qr": {
       "post": {
         "tags": [
           "Admin / Table Manager"
         ],
+        "summary": "Generate QR codes",
         "description": "Generate QR codes",
         "responses": {
           "200": {
