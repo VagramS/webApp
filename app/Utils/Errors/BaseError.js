@@ -1,7 +1,7 @@
 class BaseError extends Error {
-    constructor(httpCode, message, data) {
+    constructor(statusCode, message, data) {
         super();
-        this.httpCode = httpCode;
+        this.statusCode = statusCode;
         this.message = message;
         this.data = data;
     }

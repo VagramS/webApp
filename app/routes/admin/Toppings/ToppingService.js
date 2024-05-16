@@ -1,19 +1,19 @@
 const schemas = require('../../../Utils/db/Schemas');
 const {BadRequestError, NotFoundError, InternalServerError} = require('../../../Utils/Errors/index.js');
 
-const CreateTopping = async (req, res) => {
+const CreateTopping = async (req, res, next) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to create add-on/toppings options'
     res.send('Create a new topping');
 };
 
-const UpdateTopping = async (req, res) => {
+const UpdateTopping = async (req, res, next) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to update add-on/toppings options'
     res.send('Update a topping');
 };
 
-const DeleteTopping = async (req, res) => {
+const DeleteTopping = async (req, res, next) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to delete add-on/toppings options'
     res.send('Delete a topping');

@@ -1,7 +1,7 @@
 const schemas = require('../../../Utils/db/Schemas.js');
 const {BadRequestError, NotFoundError, InternalServerError} = require('../../../Utils/Errors/index.js');
 
-const DisplayCategories = async (req, res) => {
+const DisplayCategories = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Display all available categories (Snacks, Salads, Main, Drinks… etc).'
     try {
@@ -12,7 +12,7 @@ const DisplayCategories = async (req, res) => {
     }
 };
 
-const DisplayMeals = async (req, res) => {
+const DisplayMeals = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Display all available meals grouped by categories.'
     try {
@@ -24,7 +24,7 @@ const DisplayMeals = async (req, res) => {
     }
 };
 
-const FilterByCategory = async (req, res) => {
+const FilterByCategory = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to filter meals by category.'
     // #swagger.parameters['categoryId'] = { description: 'Category ID' }
@@ -37,7 +37,7 @@ const FilterByCategory = async (req, res) => {
     }
 };
 
-const ViewDetailsById = async (req, res) => {
+const ViewDetailsById = async (req, res, next) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to view details of a specific meal.'
     // #swagger.parameters['mealId'] = { description: 'Meal ID' }

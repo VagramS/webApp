@@ -1,8 +1,8 @@
 const BaseError = require('./BaseError');
 
 class UnauthorizedError extends BaseError{
-    constructor(message){
-        super(401, message)
+    constructor(message, data){
+        super(401, message, data);
     }
 }
 

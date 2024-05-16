@@ -4,7 +4,7 @@ const {BadRequestError, NotFoundError, InternalServerError} = require('../../../
 // After successful payment, display a confirmation message to the client. 
 // Include the order number, total cost, tip amount, and table number in the confirmation message.
 
-const Confirmation_Message = async (req, res) => {
+const Confirmation_Message = async (req, res, next) => {
     // #swagger.tags = ['Client / Order']\
     // #swagger.description = 'Display a confirmation message to the client after a successful payment.'\
     try {

@@ -1,5 +1,5 @@
-const BadRequestError = require('./BadRequestError');
 const BaseError = require('./BaseError');
+const BadRequestError = require('./BadRequestError');
 const ConflictError = require('./ConflictError');
 const ForbiddenError = require('./ForbiddenError');
 const InternalServerError = require('./InternalServiceError');
