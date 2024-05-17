@@ -4,10 +4,10 @@ const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
 router.post('/add', AuthMiddleware.verifyToken, MealService.AddNewMeal);
 
-router.patch('/update', MealService.UpdateMeal);
+router.patch('/update', AuthMiddleware.verifyToken, MealService.UpdateMeal);
 
-router.delete('/delete', MealService.DeleteMeal);
+router.delete('/delete', AuthMiddleware.verifyToken, MealService.DeleteMeal);
 
-router.patch('/status', MealService.UpdateMealStatus);
+router.patch('/update-status', AuthMiddleware.verifyToken, MealService.UpdateMealStatus);
 
 module.exports = router;

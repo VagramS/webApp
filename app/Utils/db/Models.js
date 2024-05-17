@@ -14,11 +14,11 @@ const MenuCategory = mongoose.model('MenuCategory', MenuCategorySchema);
 // Meals
 const MealSchema = new Schema({
   name: { type: String, required: true },
-  description: String,
+  description: { type: String, default: null },
   price: { type: Number, required: true },
-  image_url: String,
+  image_url: { type: String, default: null },
   category_id: { type: Schema.Types.ObjectId, ref: 'MenuCategory' },
-  nutrition_info: Schema.Types.Mixed,
+  nutrition_info: { type: String, default: null },
   is_active: { type: Boolean, default: true }
 });
 const Meal = mongoose.model('Meal', MealSchema);

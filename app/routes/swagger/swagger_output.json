@@ -449,6 +449,38 @@
         ],
         "summary": "Add a new meal",
         "description": "Allow admin to add a new meal",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "image_url": {
+                  "example": "any"
+                },
+                "categoryId": {
+                  "example": "any"
+                },
+                "nutrition_info": {
+                  "example": "any"
+                },
+                "is_active": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -484,7 +516,7 @@
         }
       }
     },
-    "/admin/meals/status": {
+    "/admin/meals/update-status": {
       "patch": {
         "tags": [
           "Admin / Meal Manager"
