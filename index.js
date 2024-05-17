@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3001;
 
 const { Admin_Router, Client_Router, Swagger_Router } = require('./app/routes/mainRouter.js');
 
+app.use(express.json());
+
 // Connect to MongoDB
 mongoose.connect();
 

@@ -1,32 +1,39 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
+const mongo = require('./Connection_mongoDB.js'); 
+const Schema = mongoose.Schema;
+
 
 // Menu Categories
-const menuCategorySchema = new Schema({
+const MenuCategorySchema = new Schema({
   name: { type: String, required: true, unique: true },
   description: String
 });
+const MenuCategory = mongoose.model('MenuCategory', MenuCategorySchema);
+
 
 // Meals
-const mealSchema = new Schema({
+const MealSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   price: { type: Number, required: true },
   image_url: String,
   category_id: { type: Schema.Types.ObjectId, ref: 'MenuCategory' },
-  tag: String,
   nutrition_info: Schema.Types.Mixed,
   is_active: { type: Boolean, default: true }
 });
+const Meal = mongoose.model('Meal', MealSchema);
+
 
 // Toppings
-const toppingSchema = new Schema({
+const ToppingSchema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true }
 });
+const Topping = mongoose.model('Topping', ToppingSchema);
+
 
 // Orders
-const orderSchema = new Schema({
+const OrderSchema = new Schema({
   order_number: { type: String, required: true, unique: true },
   total_cost: { type: Number, required: true },
   tip: { type: Number, default: 0.00 },
@@ -34,9 +41,11 @@ const orderSchema = new Schema({
   payment_status: String,
   created_at: { type: Date, default: Date.now }
 });
+const Order = mongoose.model('Order', OrderSchema);
+
 
 // Order Items
-const orderItemSchema = new Schema({
+const OrderItemSchema = new Schema({
   order_id: { type: Schema.Types.ObjectId, ref: 'Order' },
   meal_id: { type: Schema.Types.ObjectId, ref: 'Meal' },
   quantity: { type: Number, required: true },
@@ -44,16 +53,20 @@ const orderItemSchema = new Schema({
   comments: String,
   toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping' }]
 });
+const OrderItem = mongoose.model('OrderItem', OrderItemSchema);
+
 
 // Cart
-const cartSchema = new Schema({
+const CartSchema = new Schema({
   user_id: Number,
   session_id: { type: String, unique: true },
   created_at: { type: Date, default: Date.now }
 });
+const Cart = mongoose.model('Cart', CartSchema);
+
 
 // Cart Items
-const cartItemSchema = new Schema({
+const CartItemsSchema = new Schema({
   cart_id: { type: Schema.Types.ObjectId, ref: 'Cart' },
   meal_id: { type: Schema.Types.ObjectId, ref: 'Meal' },
   quantity: { type: Number, required: true },
@@ -61,51 +74,61 @@ const cartItemSchema = new Schema({
   comments: String,
   toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping' }]
 });
+const CartItems = mongoose.model('CartItems', CartItemsSchema);
+
 
 // Admin Users
-const adminUserSchema = new Schema({
+const AdminUserSchema = new Schema({
   username: { type: String, required: true, unique: true },
-  password_hash: { type: String, required: true },
+  password: { type: String, required: true },
+  token: {type: String, default: null},
   created_at: { type: Date, default: Date.now },
-  last_login: Date
 });
+const AdminUser = mongoose.model('AdminUser', AdminUserSchema);
+
 
 // Payments
-const paymentSchema = new Schema({
+const PaymentSchema = new Schema({
   order_id: { type: Schema.Types.ObjectId, ref: 'Order' },
   payment_method: { type: String, required: true },
   payment_details: Schema.Types.Mixed,
   paid_at: Date,
   payment_status: String
 });
+const Payment = mongoose.model('Payment', PaymentSchema);
+
 
 // Tables
-const tableSchema = new Schema({
+const TableSchema = new Schema({
   table_number: { type: Number, required: true, unique: true },
   qr_code_url: String
 });
+const Table = mongoose.model('Table', TableSchema);
 
-// Model exports
-mongoose.model('MenuCategory', menuCategorySchema);
-mongoose.model('Meal', mealSchema);
-mongoose.model('Toppings', toppingSchema);
-mongoose.model('Order', orderSchema);
-mongoose.model('OrderItem', orderItemSchema);
-mongoose.model('Cart', cartSchema);
-mongoose.model('CartItem', cartItemSchema);
-mongoose.model('AdminUser', adminUserSchema);
-mongoose.model('Payment', paymentSchema);
-mongoose.model('Table', tableSchema);
+
+async function addRecords() {
+  mongo.connect();
+
+  const menuCategory = new MenuCategory({
+    name: 'Burgers',
+    description: 'Delicious burgers'
+  });
+  //await menuCategory.save();
+  
+  console.log('Records added');
+}
+
+//addRecords().catch(console.error);
 
 module.exports = {
-    menuCategory: mongoose.model('MenuCategory'),
-    meal: mongoose.model('Meal'),
-    toppings: mongoose.model('Toppings'),
-    order: mongoose.model('Order'),
-    orderItem: mongoose.model('OrderItem'),
-    cart: mongoose.model('Cart'),
-    cartItem: mongoose.model('CartItem'),
-    adminUser: mongoose.model('AdminUser'),
-    payment: mongoose.model('Payment'),
-    table: mongoose.model('Table')
-};
+  MenuCategory,
+  Meal,
+  Topping,
+  Order,
+  OrderItem,
+  Cart,
+  CartItems,
+  AdminUser,
+  Payment,
+  Table
+}

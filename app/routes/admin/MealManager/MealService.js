@@ -1,10 +1,11 @@
-const schemas = require('../../../Utils/db/Schemas');
+const schemas = require('../../../Utils/db/Models.js');
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
 
 const AddNewMeal = async (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
     // #swagger.description = 'Allow admin to add a new meal'
     // #swagger.summary = 'Add a new meal'
+    
     res.send('Add a new meal');
 };
 

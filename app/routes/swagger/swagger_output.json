@@ -526,6 +526,44 @@
         }
       }
     },
+    "/admin/auth/registration": {
+      "post": {
+        "tags": [
+          "Admin / Auth"
+        ],
+        "summary": "Admin registration",
+        "description": "Secure registration system for admin users.",
+        "parameters": [
+          {
+            "name": "obj",
+            "username": "Registration form",
+            "password": "Registration form",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/admin/auth/login": {
       "post": {
         "tags": [
@@ -533,6 +571,30 @@
         ],
         "summary": "Admin login",
         "description": "Secure login system for admin users.",
+        "parameters": [
+          {
+            "name": "obj",
+            "username": "admin",
+            "password": "admin",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -1,7 +1,8 @@
 const router = require('express-promise-router')();
 const MealService = require('./MealService');
+const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
-router.post('/add', MealService.AddNewMeal);
+router.post('/add', AuthMiddleware.verifyToken, MealService.AddNewMeal);
 
 router.patch('/update', MealService.UpdateMeal);
 
