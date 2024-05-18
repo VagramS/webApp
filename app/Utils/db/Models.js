@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 // Menu Categories
 const MenuCategorySchema = new Schema({
+  id: { type: Number, required: true, unique: true },
   name: { type: String, required: true, unique: true },
   description: String
 });
@@ -13,13 +14,15 @@ const MenuCategory = mongoose.model('MenuCategory', MenuCategorySchema);
 
 // Meals
 const MealSchema = new Schema({
+  id: { type: Number, required: true, unique: true},
   name: { type: String, required: true },
   description: { type: String, default: null },
   price: { type: Number, required: true },
   image_url: { type: String, default: null },
   category_id: { type: Schema.Types.ObjectId, ref: 'MenuCategory' },
   nutrition_info: { type: String, default: null },
-  is_active: { type: Boolean, default: true }
+  is_active: { type: Boolean, default: true },
+  toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping'}]
 });
 const Meal = mongoose.model('Meal', MealSchema);
 

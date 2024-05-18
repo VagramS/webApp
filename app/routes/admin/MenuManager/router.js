@@ -1,10 +1,11 @@
 const router = require('express-promise-router')();
 const MenuService = require('./MenuService');
+const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
-router.post('/create', MenuService.CreateMenuCategory);
+router.post('/create', AuthMiddleware.verifyToken, MenuService.CreateMenuCategory);
 
-router.patch('/update', MenuService.UpdateMenuCategory);
+router.patch('/update/:categoryid', AuthMiddleware.verifyToken, MenuService.UpdateMenuCategory);
 
-router.delete('/delete', MenuService.DeleteMenuCategory);
+router.delete('/delete/:categoryid', AuthMiddleware.verifyToken, MenuService.DeleteMenuCategory);
 
 module.exports = router;

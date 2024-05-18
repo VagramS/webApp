@@ -29,7 +29,6 @@ const DisplayMeals = async (req, res) => {
 const FilterByCategory = async (req, res) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to filter meals by category.'
-    // #swagger.parameters['categoryId'] = { description: 'Category ID' }
     // #swagger.summary = 'Filter meals by category'
     try {
         const meals = await schemas.meal.find({categoryId: req.params.categoryId});
@@ -43,7 +42,6 @@ const FilterByCategory = async (req, res) => {
 const ViewDetailsById = async (req, res) => {
     // #swagger.tags = ["Client / Menu"]
     // #swagger.description = 'Allow users to view details of a specific meal.'
-    // #swagger.parameters['mealId'] = { description: 'Meal ID' }
     // #swagger.summary = 'View meal details'
     try{
         const meal = await schemas.meal.findById(req.params.mealId);

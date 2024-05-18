@@ -16,14 +16,14 @@ const verifyToken = async(req, res, next) => {
   jwt.verify(token, secret, (err) => {
     if (err) {
       tokenExpired = true;
-      throw new UnauthorizedError('Not authenticated');
+      throw new UnauthorizedError('Token expired');
     }
   });
 
   if (!tokenExpired) {
     const admin = await schemas.AdminUser.findOne({ token });
     if (!admin) 
-      throw new UnauthorizedError('Not authenticated');
+      throw new UnauthorizedError('Not admin user');
     
     req.admin = admin;
   }

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const winston = require('winston');
+const moment = require('moment-timezone');
 
 const logDir = 'logs';
 
@@ -23,7 +24,9 @@ const logger = winston.createLogger({
             filename: `${logDir}/error.log`,
             level: 'error',
             format: winston.format.combine(
-                winston.format.timestamp(),
+                winston.format.timestamp({
+                    format: () => moment().tz('Europe/Madrid').format()
+                }),
                 myFormat
             ),
         }),
@@ -31,7 +34,9 @@ const logger = winston.createLogger({
         new winston.transports.File({
             filename: `${logDir}/mixed.log`,
             format: winston.format.combine(
-                winston.format.timestamp(),
+                winston.format.timestamp({
+                    format: () => moment().tz('Europe/Madrid').format()
+                }),
                 myFormat
             ),
         }),

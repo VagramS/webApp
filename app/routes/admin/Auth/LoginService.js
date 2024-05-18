@@ -8,7 +8,6 @@ const Registration = async (req, res) => {
     // #swagger.tags = ['Admin / Auth']
     // #swagger.description = 'Secure registration system for admin users.'
     // #swagger.summary = 'Admin registration'
-    // #swagger.parameters['obj'] = {username: 'Registration form', password: 'Registration form'}
 
     const {username, password} = req.body;
     
@@ -23,12 +22,10 @@ const Registration = async (req, res) => {
     return res.status(200).send({messsage: 'User created successfully'});
 }
 
-
 const Login = async (req, res) => {
     // #swagger.tags = ['Admin / Auth']
     // #swagger.description = 'Secure login system for admin users.'
     // #swagger.summary = 'Admin login'
-    // #swagger.parameters['obj'] = {username: 'admin', password: 'admin'}
     
     const {username, password} = req.body;
     const AdminUser = await schemas.AdminUser.findOne({username});

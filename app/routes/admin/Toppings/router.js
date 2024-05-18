@@ -1,10 +1,11 @@
 const router = require('express-promise-router')();
 const ToppingsService = require('./ToppingService');
+const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
-router.post('/create', ToppingsService.CreateTopping);
+router.post('/create', AuthMiddleware.verifyToken, ToppingsService.CreateTopping);
 
-router.patch('/update', ToppingsService.UpdateTopping);
+router.patch('/update', AuthMiddleware.verifyToken, ToppingsService.UpdateTopping);
 
-router.delete('/delete', ToppingsService.DeleteTopping);
+router.delete('/delete', AuthMiddleware.verifyToken, ToppingsService.DeleteTopping);
 
 module.exports = router;

@@ -78,7 +78,6 @@ const DisplayTotal = async (req, res) => {
 const Tip = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.'
-    // #swagger.parameters['tipAmount'] = { description: 'Tip amount', type: 'Integer'}
     // #swagger.summary = 'Add a tip to the order'
     res.send('Tip added');
 };
