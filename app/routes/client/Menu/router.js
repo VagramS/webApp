@@ -5,8 +5,8 @@ router.get('/categories', CategoriesService.DisplayCategories);
 
 router.get('/meals', CategoriesService.DisplayMeals);
 
-router.get('/meals/:categoryId', CategoriesService.FilterByCategory);
+router.get('/meals/:categoryid', CategoriesService.FilterByCategory);
 
-router.get('/meals/:mealId', CategoriesService.ViewDetailsById);
+router.get('/meal/:mealid', CategoriesService.ViewDetailsById);
 
 module.exports = router;

@@ -30,9 +30,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": []
@@ -48,15 +45,12 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": []
       }
     },
-    "/client/menu/meals/{categoryId}": {
+    "/client/menu/meals/{categoryid}": {
       "get": {
         "tags": [
           "Client / Menu"
@@ -65,7 +59,7 @@
         "description": "Allow users to filter meals by category.",
         "parameters": [
           {
-            "name": "categoryId",
+            "name": "categoryid",
             "in": "path",
             "required": true,
             "type": "string"
@@ -74,15 +68,12 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": []
       }
     },
-    "/client/menu/meals/{mealId}": {
+    "/client/menu/meal/{mealid}": {
       "get": {
         "tags": [
           "Client / Menu"
@@ -91,7 +82,7 @@
         "description": "Allow users to view details of a specific meal.",
         "parameters": [
           {
-            "name": "mealId",
+            "name": "mealid",
             "in": "path",
             "required": true,
             "type": "string"
@@ -100,9 +91,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": []
@@ -598,7 +586,7 @@
                 "image_url": {
                   "example": "any"
                 },
-                "categoryId": {
+                "category_id": {
                   "example": "any"
                 },
                 "nutrition_info": {

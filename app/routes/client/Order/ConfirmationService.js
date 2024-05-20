@@ -10,9 +10,14 @@ const Confirmation_Message = async (req, res) => {
     // #swagger.summary = 'Display a confirmation message'
     // #swagger.security = []
 
+    const order_id = req.body.order_id;
 
-    
-    res.status(200).send({message: 'Order confirmed', order});
+    if (!order) 
+        throw new NotFoundError('Order not found');
+
+    const confirmationMessage = `Order confirmed. Order number: ${order.order_id}, Total cost: ${order.total_cost}, Tip amount: ${order.tipAmount}, Table number: ${order.table.number}`;
+
+    res.status(200).send({ message: "Payment confirmed", confirmationMessage });
 };
 
 module.exports = {

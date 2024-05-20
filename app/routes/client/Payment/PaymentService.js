@@ -6,7 +6,7 @@ const PayWithStripe = async (req, res) => {
     // #swagger.description = 'Allow users to pay via Stripe.'
     // #swagger.summary = 'Pay with Stripe'
     // #swagger.security = []
-    res.send('Stripe payment');
+    res.status(200).send({message: 'All the meals showed'})
 };
 
 const CompletePayment = async (req, res) => {
@@ -14,7 +14,7 @@ const CompletePayment = async (req, res) => {
     // #swagger.description = 'Allow users to enter payment details and complete the transaction.'
     // #swagger.summary = 'Complete payment'
     // #swagger.security = []
-    res.send('Payment completed');
+    res.status(200).send({message: 'All the meals showed'})
 };
 
 const PayWithApplePay = async (req, res) => {
@@ -22,7 +22,7 @@ const PayWithApplePay = async (req, res) => {
     // #swagger.description = 'Allow users to pay via Apple Pay.'
     // #swagger.summary = 'Pay with Apple Pay'
     // #swagger.security = []
-    res.send('Apple Pay');
+    res.status(200).send({message: 'All the meals showed'})
 };
 
 const ShowPaymentStatus = async (req, res) => {
@@ -30,7 +30,7 @@ const ShowPaymentStatus = async (req, res) => {
     // #swagger.description = 'Handle successful and failed payment transactions.'
     // #swagger.summary = 'Show payment status'
     // #swagger.security = []
-    res.send('Payment status');
+    res.status(200).send({message: 'All the meals showed'})
 };
 
 const DisplayPaymentConfirmation = async (req, res) => {
@@ -38,7 +38,7 @@ const DisplayPaymentConfirmation = async (req, res) => {
     // #swagger.description = 'Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.'
     // #swagger.summary = 'Display payment confirmation'
     // #swagger.security = []
-    res.send('Payment confirmation');
+    res.status(200).send({message: 'All the meals showed'})
 };
 
 module.exports = {

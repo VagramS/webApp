@@ -18,7 +18,7 @@ const MealSchema = new Schema({
   description: { type: String, default: null },
   price: { type: Number, required: true },
   image_url: { type: String, default: null },
-  category_id: { type: Schema.Types.ObjectId, ref: 'MenuCategory' },
+  category_id: { type: Number, ref: 'MenuCategory', required: true},
   nutrition_info: { type: String, default: null },
   is_active: { type: Boolean, default: true },
   toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping'}]
@@ -63,7 +63,7 @@ const OrderItem = mongoose.model('OrderItem', OrderItemSchema);
 
 // Cart
 const CartSchema = new Schema({
-  user_id: Number,
+  cart_id: { type: Number, required: true, unique: true },
   session_id: { type: String, unique: true },
   created_at: { type: Date, default: Date.now }
 });
@@ -109,6 +109,7 @@ const TableSchema = new Schema({
   qr_code_url: String
 });
 const Table = mongoose.model('Table', TableSchema);
+
 
 async function addRecords() {
   mongo.connect();

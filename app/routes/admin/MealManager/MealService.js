@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const schemas = require('../../../Utils/db/Models.js');
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
 
@@ -7,14 +8,18 @@ const AddNewMeal = async (req, res) => {
     // #swagger.summary = 'Add a new meal'
     // #swagger.security = [{ "apiKeyAuth": [] }]
     
-    const {id, name, description, price, image_url, categoryId, nutrition_info, is_active} = req.body;
-    if(!id || !name || !price || !categoryId || !image_url || !nutrition_info || !description) 
+    const {id, name, description, price, image_url, category_id, nutrition_info, is_active} = req.body;
+    if(!id || !name || !price || !category_id || !image_url || !nutrition_info || !description) 
         throw new BadRequestError('Invalid input', 'All fields are required');
 
     if(id < 0) 
         throw new BadRequestError('Invalid input', 'Meal ID must be a positive number');
 
-    const meal = new schemas.Meal({id, name, description, price, image_url, categoryId, nutrition_info, is_active});
+    const category = await schemas.MenuCategory.findOne({id: category_id});
+    if(!category) 
+        throw new NotFoundError('Not found', 'Category does not exist');
+
+    const meal = new schemas.Meal({id, name, description, price, image_url, category_id, nutrition_info, is_active});
     if(await schemas.Meal.findOne({id: id}))
         throw new ConflictError('Conflict', 'A meal with the same ID already exists');
 
