@@ -4,6 +4,6 @@ const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
 router.get('/view', AuthMiddleware.verifyToken, OrderService.ViewAllActiveOrders);
 
-router.patch('/status', AuthMiddleware.verifyToken, OrderService.UpdateOrderStatus);
+router.patch('/status/:orderid', AuthMiddleware.verifyToken, OrderService.UpdateOrderStatus);
 
 module.exports = router;

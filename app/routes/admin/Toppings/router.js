@@ -4,8 +4,8 @@ const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
 
 router.post('/create', AuthMiddleware.verifyToken, ToppingsService.CreateTopping);
 
-router.patch('/update', AuthMiddleware.verifyToken, ToppingsService.UpdateTopping);
+router.patch('/update/:toppingid', AuthMiddleware.verifyToken, ToppingsService.UpdateTopping);
 
-router.delete('/delete', AuthMiddleware.verifyToken, ToppingsService.DeleteTopping);
+router.delete('/delete/:toppingid', AuthMiddleware.verifyToken, ToppingsService.DeleteTopping);
 
 module.exports = router;

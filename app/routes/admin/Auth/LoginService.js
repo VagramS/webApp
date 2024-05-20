@@ -8,6 +8,7 @@ const Registration = async (req, res) => {
     // #swagger.tags = ['Admin / Auth']
     // #swagger.description = 'Secure registration system for admin users.'
     // #swagger.summary = 'Admin registration'
+    // #swagger.security = []
 
     const {username, password} = req.body;
     
@@ -26,6 +27,7 @@ const Login = async (req, res) => {
     // #swagger.tags = ['Admin / Auth']
     // #swagger.description = 'Secure login system for admin users.'
     // #swagger.summary = 'Admin login'
+    // #swagger.security = []
     
     const {username, password} = req.body;
     const AdminUser = await schemas.AdminUser.findOne({username});

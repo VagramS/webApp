@@ -34,7 +34,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/menu/meals": {
@@ -51,7 +52,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/menu/meals/{categoryId}": {
@@ -76,7 +78,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/menu/meals/{mealId}": {
@@ -101,7 +104,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/product/{productId}": {
@@ -123,7 +127,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/add/{productId}": {
@@ -140,28 +145,14 @@
             "required": true,
             "type": "Integer",
             "description": "Product ID"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "productId": {
-                  "example": "any"
-                },
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/": {
@@ -175,7 +166,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/remove/{productId}": {
@@ -198,7 +190,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/update/{productId}": {
@@ -221,7 +214,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/Comment": {
@@ -235,7 +229,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/total": {
@@ -249,7 +244,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/cart/tip": {
@@ -263,7 +259,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/payment/stripe": {
@@ -277,7 +274,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/payment/complete": {
@@ -291,7 +289,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/payment/applepay": {
@@ -305,7 +304,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/payment/status": {
@@ -319,7 +319,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/payment/confirmation": {
@@ -333,7 +334,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/client/order/confirmation": {
@@ -346,14 +348,9 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
-        }
+        },
+        "security": []
       }
     },
     "/admin/menu/create": {
@@ -387,7 +384,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/menu/update/{categoryid}": {
@@ -424,7 +426,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/menu/delete/{categoryid}": {
@@ -446,7 +453,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/toppings/create": {
@@ -456,39 +468,105 @@
         ],
         "summary": "Create a new topping",
         "description": "Allow admin to create add-on/toppings options",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
-    "/admin/toppings/update": {
+    "/admin/toppings/update/{toppingid}": {
       "patch": {
         "tags": [
           "Admin / Toppings"
         ],
         "summary": "Update a topping",
         "description": "Allow admin to update add-on/toppings options",
+        "parameters": [
+          {
+            "name": "toppingid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
-    "/admin/toppings/delete": {
+    "/admin/toppings/delete/{toppingid}": {
       "delete": {
         "tags": [
           "Admin / Toppings"
         ],
         "summary": "Delete a topping",
         "description": "Allow admin to delete add-on/toppings options",
+        "parameters": [
+          {
+            "name": "toppingid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/meals/add": {
@@ -537,7 +615,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/meals/update/{mealid}": {
@@ -592,7 +675,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/meals/delete/{mealid}": {
@@ -614,7 +702,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/orders/view": {
@@ -628,21 +721,51 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
-    "/admin/orders/status": {
+    "/admin/orders/status/{orderid}": {
       "patch": {
         "tags": [
           "Admin / Order Manager"
         ],
         "summary": "Update order status",
         "description": "Mark orders as fulfilled or cancelled",
+        "parameters": [
+          {
+            "name": "orderid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_status": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/auth/registration": {
@@ -673,7 +796,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/admin/auth/login": {
@@ -704,7 +828,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/admin/tables/create": {
@@ -718,35 +843,66 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
-    "/admin/tables/update": {
+    "/admin/tables/update/{tableid}": {
       "patch": {
         "tags": [
           "Admin / Table Manager"
         ],
         "summary": "Update a table",
         "description": "Allow admin to update a table",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
-    "/admin/tables/delete": {
+    "/admin/tables/delete/{tableid}": {
       "delete": {
         "tags": [
           "Admin / Table Manager"
         ],
         "summary": "Delete a table",
         "description": "Allow admin to delete a table",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/tables/generate-id": {
@@ -760,7 +916,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/tables/generate-url": {
@@ -774,7 +935,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/admin/tables/generate-qr": {
@@ -788,7 +954,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     }
   },

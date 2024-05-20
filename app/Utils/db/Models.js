@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const mongo = require('./Connection_mongoDB.js'); 
 const Schema = mongoose.Schema;
 
-
 // Menu Categories
 const MenuCategorySchema = new Schema({
   id: { type: Number, required: true, unique: true },
@@ -29,6 +28,7 @@ const Meal = mongoose.model('Meal', MealSchema);
 
 // Toppings
 const ToppingSchema = new Schema({
+  id: { type: Number, required: true, unique: true },
   name: { type: String, required: true },
   price: { type: Number, required: true }
 });
@@ -37,11 +37,13 @@ const Topping = mongoose.model('Topping', ToppingSchema);
 
 // Orders
 const OrderSchema = new Schema({
-  order_number: { type: String, required: true, unique: true },
+  order_id: { type: String, required: true, unique: true },
+  table_id: Number,
+  order_items: [{ type: Schema.Types.ObjectId, ref: 'OrderItem' }],
   total_cost: { type: Number, required: true },
   tip: { type: Number, default: 0.00 },
-  table_number: Number,
   payment_status: String,
+  order_status: { type: String, default: 'Pending' },
   created_at: { type: Date, default: Date.now }
 });
 const Order = mongoose.model('Order', OrderSchema);
@@ -108,15 +110,19 @@ const TableSchema = new Schema({
 });
 const Table = mongoose.model('Table', TableSchema);
 
-
 async function addRecords() {
   mongo.connect();
 
-  const menuCategory = new MenuCategory({
-    name: 'Burgers',
-    description: 'Delicious burgers'
+  const order = new Order({
+    order_id: 9,
+    table_id: 7,
+    order_items: [],
+    total_cost: 10.00,
+    tip: 0.00,
+    payment_status: 'Paid',
+    order_status: 'Pending',
   });
-  //await menuCategory.save();
+  await order.save();
   
   console.log('Records added');
 }

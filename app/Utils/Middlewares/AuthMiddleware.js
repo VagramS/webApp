@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 const {secret} = require('../../../config.js');
 
 const verifyToken = async(req, res, next) => {
-    const authorizationHeader = req.headers?.authorization;
+  const authorizationHeader = req.headers?.authorization;
   if (!authorizationHeader) 
     throw new UnauthorizedError('Not authenticated');
 

@@ -5,6 +5,8 @@ const AddNewMeal = async (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
     // #swagger.description = 'Allow admin to add a new meal'
     // #swagger.summary = 'Add a new meal'
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+    
     const {id, name, description, price, image_url, categoryId, nutrition_info, is_active} = req.body;
     if(!id || !name || !price || !categoryId || !image_url || !nutrition_info || !description) 
         throw new BadRequestError('Invalid input', 'All fields are required');
@@ -25,6 +27,8 @@ const UpdateMeal = async (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
     // #swagger.description = 'Allow admin to update a meal'
     // #swagger.summary = 'Update a meal'
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+
     const mealId = req.params.mealid;
     const {name, description, price, image_url, categoryId, nutrition_info, is_active, toppings} = req.body;
     const meal = await schemas.Meal.findOne({id: mealId});
@@ -48,13 +52,15 @@ const DeleteMeal = async (req, res) => {
     // #swagger.tags = ['Admin / Meal Manager']
     // #swagger.description = 'Allow admin to delete a meal'
     // #swagger.summary = 'Delete a meal'
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+
     const mealId = req.params.mealid;
     const meal = await schemas.Meal.findOne({id: mealId});
     if(!meal) 
         throw new NotFoundError('Not found', 'Meal not found');    
     else
         await schemas.Meal.deleteOne({id: mealId});
-
+    
     res.status(200).send({message: 'The meal deleted', meal});
 };
 

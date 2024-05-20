@@ -5,6 +5,8 @@ const CreateMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Create a menu category'
     // #swagger.summary = 'Create a menu category'
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+
     const {id, name, description} = req.body;
     if(!name) 
         throw new BadRequestError('Invalid input', 'Category name is required');
@@ -24,6 +26,8 @@ const UpdateMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Update a menu category'
     // #swagger.summary = 'Update a menu category' 
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+
     const categoryid = req.params.categoryid;
     const {name, description} = req.body;
     const category = await schemas.MenuCategory.findOne({id : categoryid});
@@ -45,6 +49,8 @@ const DeleteMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Delete a menu category'
     // #swagger.summary = 'Delete a menu category'
+    // #swagger.security = [{ "apiKeyAuth": [] }]
+    
     const categoryid = req.params.categoryid;
     const category = await schemas.MenuCategory.findOne({id: categoryid});
     if(!category) 
