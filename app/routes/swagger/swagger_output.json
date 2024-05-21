@@ -119,30 +119,6 @@
         "security": []
       }
     },
-    "/client/cart/add/{productId}": {
-      "post": {
-        "tags": [
-          "Client / Cart"
-        ],
-        "summary": "Add a product to the cart",
-        "description": "Allow users to add meals to the cart from both the menu page and the product page.",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "type": "Integer",
-            "description": "Product ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
     "/client/cart/": {
       "get": {
         "tags": [
@@ -158,22 +134,13 @@
         "security": []
       }
     },
-    "/client/cart/remove/{productId}": {
-      "delete": {
+    "/client/cart/total": {
+      "get": {
         "tags": [
           "Client / Cart"
         ],
-        "summary": "Remove a product from the cart",
-        "description": "Ability to remove items from the cart.",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "type": "Integer",
-            "description": "Product ID"
-          }
-        ],
+        "summary": "Display the total cost",
+        "description": "Display the total cost of the order.",
         "responses": {
           "200": {
             "description": "OK"
@@ -182,13 +149,13 @@
         "security": []
       }
     },
-    "/client/cart/update/{productId}": {
-      "patch": {
+    "/client/cart/add/{productId}": {
+      "post": {
         "tags": [
           "Client / Cart"
         ],
-        "summary": "Adjust the quantity of a product in the cart",
-        "description": "Ability to adjust quantity of items from the cart.",
+        "summary": "Add a product to the cart",
+        "description": "Allow users to add meals to the cart from both the menu page and the product page.",
         "parameters": [
           {
             "name": "productId",
@@ -221,13 +188,13 @@
         "security": []
       }
     },
-    "/client/cart/total": {
-      "get": {
+    "/client/cart/tip": {
+      "post": {
         "tags": [
           "Client / Cart"
         ],
-        "summary": "Display the total cost",
-        "description": "Display the total cost of the order.",
+        "summary": "Add a tip to the order",
+        "description": "Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.",
         "responses": {
           "200": {
             "description": "OK"
@@ -236,13 +203,61 @@
         "security": []
       }
     },
-    "/client/cart/tip": {
-      "post": {
+    "/client/cart/update/{productId}": {
+      "patch": {
         "tags": [
           "Client / Cart"
         ],
-        "summary": "Add a tip to the order",
-        "description": "Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.",
+        "summary": "Adjust the quantity of a product in the cart",
+        "description": "Ability to adjust quantity of items from the cart.",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "Integer",
+            "description": "Product ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": []
+      }
+    },
+    "/client/cart/remove/{productId}": {
+      "delete": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "summary": "Remove a product from the cart",
+        "description": "Ability to remove items from the cart.",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "Integer",
+            "description": "Product ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": []
+      }
+    },
+    "/client/payment/confirmation": {
+      "get": {
+        "tags": [
+          "Client / Payment"
+        ],
+        "summary": "Display payment confirmation",
+        "description": "Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.",
         "responses": {
           "200": {
             "description": "OK"
@@ -311,13 +326,13 @@
         "security": []
       }
     },
-    "/client/payment/confirmation": {
+    "/client/order/confirmation": {
       "get": {
         "tags": [
-          "Client / Payment"
+          "Client / Order"
         ],
-        "summary": "Display payment confirmation",
-        "description": "Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.",
+        "summary": "Display a confirmation message",
+        "description": "Display a confirmation message to the client after a successful payment.",
         "responses": {
           "200": {
             "description": "OK"
@@ -326,13 +341,62 @@
         "security": []
       }
     },
-    "/client/order/confirmation": {
-      "get": {
+    "/admin/auth/registration": {
+      "post": {
         "tags": [
-          "Client / Order"
+          "Admin / Auth"
         ],
-        "summary": "Display a confirmation message",
-        "description": "Display a confirmation message to the client after a successful payment.",
+        "summary": "Admin registration",
+        "description": "Secure registration system for admin users.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": []
+      }
+    },
+    "/admin/auth/login": {
+      "post": {
+        "tags": [
+          "Admin / Auth"
+        ],
+        "summary": "Admin login",
+        "description": "Secure login system for admin users.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -756,70 +820,6 @@
         ]
       }
     },
-    "/admin/auth/registration": {
-      "post": {
-        "tags": [
-          "Admin / Auth"
-        ],
-        "summary": "Admin registration",
-        "description": "Secure registration system for admin users.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
-    "/admin/auth/login": {
-      "post": {
-        "tags": [
-          "Admin / Auth"
-        ],
-        "summary": "Admin login",
-        "description": "Secure login system for admin users.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
     "/admin/tables/create": {
       "post": {
         "tags": [
@@ -827,6 +827,23 @@
         ],
         "summary": "Add a new table",
         "description": "Allow admin to add a new table",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "table_id": {
+                  "example": "any"
+                },
+                "seats": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -852,6 +869,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "seats": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -881,63 +910,6 @@
             "type": "string"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/admin/tables/generate-id": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "summary": "Generate a unique table ID",
-        "description": "Generate a unique table ID",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/admin/tables/generate-url": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "summary": "Generate a unique URL",
-        "description": "Generate a unique URL for the table page",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/admin/tables/generate-qr": {
-      "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
-        "summary": "Generate QR codes",
-        "description": "Generate QR codes",
         "responses": {
           "200": {
             "description": "OK"

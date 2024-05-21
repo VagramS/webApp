@@ -51,8 +51,8 @@ const Order = mongoose.model('Order', OrderSchema);
 
 // Order Items
 const OrderItemSchema = new Schema({
-  order_id: { type: Schema.Types.ObjectId, ref: 'Order' },
-  meal_id: { type: Schema.Types.ObjectId, ref: 'Meal' },
+  order_id: { type: Number, ref: 'Order' },
+  meal_id: { type: Number, ref: 'Meal' },
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
   comments: String,
@@ -64,7 +64,7 @@ const OrderItem = mongoose.model('OrderItem', OrderItemSchema);
 // Cart
 const CartSchema = new Schema({
   cart_id: { type: Number, required: true, unique: true },
-  session_id: { type: String, unique: true },
+  cart_items: [{ type: Schema.Types.ObjectId, ref: 'CartItems' }],
   created_at: { type: Date, default: Date.now }
 });
 const Cart = mongoose.model('Cart', CartSchema);
@@ -72,10 +72,9 @@ const Cart = mongoose.model('Cart', CartSchema);
 
 // Cart Items
 const CartItemsSchema = new Schema({
-  cart_id: { type: Schema.Types.ObjectId, ref: 'Cart' },
-  meal_id: { type: Schema.Types.ObjectId, ref: 'Meal' },
+  cart_id: { type: Number, ref: 'Cart' },
+  meal_id: { type: Number, ref: 'Meal' },
   quantity: { type: Number, required: true },
-  added_at: { type: Date, default: Date.now },
   comments: String,
   toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping' }]
 });
@@ -94,19 +93,21 @@ const AdminUser = mongoose.model('AdminUser', AdminUserSchema);
 
 // Payments
 const PaymentSchema = new Schema({
-  order_id: { type: Schema.Types.ObjectId, ref: 'Order' },
+  order_id: { type: Number, ref: 'Order' },
   payment_method: { type: String, required: true },
-  payment_details: Schema.Types.Mixed,
-  paid_at: Date,
-  payment_status: String
+  payment_details: String,
+  payment_status: String,
+  paid_at: Date
 });
 const Payment = mongoose.model('Payment', PaymentSchema);
 
 
 // Tables
 const TableSchema = new Schema({
-  table_number: { type: Number, required: true, unique: true },
-  qr_code_url: String
+  table_id: { type: Number, required: true, unique: true },
+  seats: { type: Number, required: true },
+  url: { type: String, required: true, unique: true},
+  qr_code_url: { type: String, unique: true}
 });
 const Table = mongoose.model('Table', TableSchema);
 
@@ -127,6 +128,17 @@ async function addRecords() {
   
   console.log('Records added');
 }
+
+async function dropTableCollection() {
+  try {
+    await mongo.connect(); // Assuming you have a connect function in Connection_mongoDB.js
+    await Table.collection.drop();
+    console.log('Table collection dropped');
+  } catch (error) {
+    console.error('Error dropping Table collection:', error);
+  }
+}
+//dropTableCollection();
 
 //addRecords().catch(console.error);
 

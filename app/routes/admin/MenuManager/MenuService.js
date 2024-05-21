@@ -8,14 +8,16 @@ const CreateMenuCategory = async (req, res) => {
     // #swagger.security = [{ "apiKeyAuth": [] }]
 
     const {id, name, description} = req.body;
-    if(!name) 
-        throw new BadRequestError('Invalid input', 'Category name is required');
+    if(!name || !id) 
+        throw new BadRequestError('Bad Request Error', 'Category id and name is required');
+
     const category = new schemas.MenuCategory({id, name, description});
 
     if(await schemas.MenuCategory.findOne({id}))
-        throw new ConflictError('Conflict', 'Category id exists');
+        throw new ConflictError('Conflict Error', 'Category id exists');
+
     if(await schemas.MenuCategory.findOne({name}))
-        throw new ConflictError('Conflict', 'Category name exists');
+        throw new ConflictError('Conflict Error', 'Category name exists');
 
     await category.save();
 
@@ -31,11 +33,12 @@ const UpdateMenuCategory = async (req, res) => {
     const categoryid = req.params.categoryid;
     const {name, description} = req.body;
     const category = await schemas.MenuCategory.findOne({id : categoryid});
+
     if(!category) 
-        throw new NotFoundError('Not found', 'Category not found');
+        throw new NotFoundError('Not Found Error', 'Category not found');
     if(name) {
         if(await schemas.MenuCategory.findOne({name}))
-            throw new ConflictError('Conflict', 'Category name exists');
+            throw new ConflictError('Conflict Error', 'Category name exists');
         category.name = name;
     }
     if(description) 
@@ -54,7 +57,7 @@ const DeleteMenuCategory = async (req, res) => {
     const categoryid = req.params.categoryid;
     const category = await schemas.MenuCategory.findOne({id: categoryid});
     if(!category) 
-        throw new NotFoundError('Not found', 'Category not found');    
+        throw new NotFoundError('Not Found Error', 'Category not found');    
     else
         await schemas.MenuCategory.deleteOne({id: categoryid});
 

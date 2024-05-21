@@ -9,14 +9,14 @@ const CreateTopping = async (req, res) => {
 
     const {id, name, price} = req.body;
     if(!id, !name || !price)
-        throw new BadRequestError('Invalid input', 'ID, Name and price are required');
+        throw new BadRequestError('Bad Request Error', 'ID, Name and price are required');
 
     const topping = new schemas.Topping({id, name, price});
 
     if(await schemas.Topping.findOne({id}))
-        throw new ConflictError('Conflict', 'Topping id already exists');
+        throw new ConflictError('Conflict Error', 'Topping id already exists');
     if(await schemas.Topping.findOne({name}))
-        throw new ConflictError('Conflict', 'Topping name already exists');
+        throw new ConflictError('Conflict Error', 'Topping name already exists');
 
     await topping.save();
 
@@ -33,7 +33,7 @@ const UpdateTopping = async (req, res) => {
     const {name, price} = req.body;
     const topping = await schemas.Topping.findOne({id: toppingid});
     if(!topping)
-        throw new NotFoundError('Not found', 'Topping not found');
+        throw new NotFoundError('Not Found Error', 'Topping not found');
     if(name) topping.name = name;
     if(price) topping.price = price;
 
@@ -51,7 +51,7 @@ const DeleteTopping = async (req, res) => {
     const toppingid = req.params.toppingid;
     const topping = await schemas.Topping.findOne({id: toppingid});
     if(!topping)
-        throw new NotFoundError('Not found', 'Topping not found');
+        throw new NotFoundError('Not Found Error', 'Topping not found');
     else
         await schemas.Topping.deleteOne({id: toppingid});
 

@@ -14,7 +14,7 @@ const Registration = async (req, res) => {
     
     const AdminUser = await schemas.AdminUser.findOne({username});
     if(AdminUser)
-        throw new ConflictError('User already exists');
+        throw new ConflictError('Conflict Error','User already exists');
 
     const hashedPassword = await bcrypt.hash(password, 7);
     const token = jwt.sign({username: username}, secret, process.env.JWT_SECRET, {expiresIn: '6h'});
@@ -32,12 +32,12 @@ const Login = async (req, res) => {
     const {username, password} = req.body;
     const AdminUser = await schemas.AdminUser.findOne({username});
     if(!AdminUser)
-        throw new NotFoundError('User not found');
+        throw new NotFoundError('Not Found Error', 'User not found');
 
     const passwordMatch = await bcrypt.compare(password, AdminUser.password);
 
     if(!passwordMatch)
-        throw new UnauthorizedError('Invalid password');
+        throw new UnauthorizedError('Unauthorized Error', 'Invalid password');
 
     const token = jwt.sign({username: username}, secret, process.env.JWT_SECRET, {expiresIn: '6h'});
     AdminUser.token = token;

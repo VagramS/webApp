@@ -8,10 +8,4 @@ router.patch('/update/:tableid', AuthMiddleware.verifyToken, TableService.Update
 
 router.delete('/delete/:tableid', AuthMiddleware.verifyToken, TableService.DeleteTable);
 
-router.post('/generate-id', AuthMiddleware.verifyToken, TableService.GenerateUniqueId);
-
-router.post('/generate-url', AuthMiddleware.verifyToken,TableService.GenerateUniqueUrl);
-
-router.post('/generate-qr', AuthMiddleware.verifyToken,TableService.GenerateQRCode);
-
 module.exports = router;

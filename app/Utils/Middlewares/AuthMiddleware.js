@@ -7,7 +7,7 @@ const {secret} = require('../../../config.js');
 const verifyToken = async(req, res, next) => {
   const authorizationHeader = req.headers?.authorization;
   if (!authorizationHeader) 
-    throw new UnauthorizedError('Not authenticated');
+    throw new UnauthorizedError('Unauthorized Error', 'Not authenticated');
 
   const token = authorizationHeader.split(' ')[1];
 
@@ -16,14 +16,14 @@ const verifyToken = async(req, res, next) => {
   jwt.verify(token, secret, (err) => {
     if (err) {
       tokenExpired = true;
-      throw new UnauthorizedError('Token expired');
+      throw new UnauthorizedError('Unauthorized Error', 'Token expired');
     }
   });
 
   if (!tokenExpired) {
     const admin = await schemas.AdminUser.findOne({ token });
     if (!admin) 
-      throw new UnauthorizedError('Not admin user');
+      throw new UnauthorizedError('Unauthorized Error', 'Not admin user');
     
     req.admin = admin;
   }
@@ -36,7 +36,7 @@ const verifyRegistration = [
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) 
-        throw new BadRequestError('Invalid input', errors.array()); 
+        throw new BadRequestError('Bad Request Error', errors.array()); 
       next();
     }
 ];

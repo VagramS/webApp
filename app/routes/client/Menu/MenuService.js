@@ -9,7 +9,7 @@ const DisplayCategories = async (req, res) => {
 
     const categories = await schemas.MenuCategory.find();
     if(!categories)
-        throw new NotFoundError('Not found', 'Categories not found');
+        throw new NotFoundError('Not Found Error', 'Categories not found');
     
     res.status(200).send({message: 'All the categories showed', categories});
 };
@@ -22,7 +22,7 @@ const DisplayMeals = async (req, res) => {
     
     let meals = await schemas.Meal.find({}, {name: 1, description: 1, price: 1, image_url: 1, _id: 0});
     if(!meals)
-        throw new NotFoundError('Not found', 'Meals not found');
+        throw new NotFoundError('Not Found Error', 'Meals not found');
 
     res.status(200).send({message: 'All the meals showed', meals});
 };
@@ -38,7 +38,7 @@ const FilterByCategory = async (req, res) => {
     
     const category = await schemas.MenuCategory.findOne({id: categoryId});
     if(!category)
-        throw new NotFoundError('Not found', `Category with id ${categoryId} not found`);
+        throw new NotFoundError('Not Found Error', `Category with id ${categoryId} not found`);
 
     res.status(200).send({message: 'All the meals showed', meals})
 };
@@ -52,7 +52,7 @@ const ViewDetailsById = async (req, res) => {
     const mealId = req.params.mealid;
     const meal = await schemas.Meal.findOne({id: mealId});
     if(!meal)
-        throw new NotFoundError('Not found', `Meal with id ${mealId} not found`);
+        throw new NotFoundError('Not Found Error', `Meal with id ${mealId} not found`);
     
     res.status(200).send({message: 'All details about the meal showed', meal})
 };

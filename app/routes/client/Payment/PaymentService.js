@@ -1,6 +1,15 @@
 const schemas = require('../../../Utils/db/Models.js');
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
 
+const DisplayPaymentConfirmation = async (req, res) => {
+    // #swagger.tags = ["Client / Payment"]
+    // #swagger.description = 'Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.'
+    // #swagger.summary = 'Display payment confirmation'
+    // #swagger.security = []
+    res.status(200).send({message: 'All the meals showed'})
+};
+
+
 const PayWithStripe = async (req, res) => {
     // #swagger.tags = ["Client / Payment"]
     // #swagger.description = 'Allow users to pay via Stripe.'
@@ -33,13 +42,6 @@ const ShowPaymentStatus = async (req, res) => {
     res.status(200).send({message: 'All the meals showed'})
 };
 
-const DisplayPaymentConfirmation = async (req, res) => {
-    // #swagger.tags = ["Client / Payment"]
-    // #swagger.description = 'Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.'
-    // #swagger.summary = 'Display payment confirmation'
-    // #swagger.security = []
-    res.status(200).send({message: 'All the meals showed'})
-};
 
 module.exports = {
     PayWithStripe,

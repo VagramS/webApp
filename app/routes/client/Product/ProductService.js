@@ -11,11 +11,11 @@ const DisplayProductById = async (req, res) => {
     meal = await schemas.Meal.findOne({id: productId});
     
     if(!meal) 
-        throw new NotFoundError('Not found', 'Product not found');
+        throw new NotFoundError('Not Found Error', 'Product not found');
 
     const {name, description, price, image_url, toppings} = meal;
 
-    res.status(200).send({message: 'Table updated', info: {name, description, price, image_url, toppings}});
+    res.status(200).send({message: 'Product displayed', info: {name, description, price, image_url, toppings}});
 };
 
 module.exports = {

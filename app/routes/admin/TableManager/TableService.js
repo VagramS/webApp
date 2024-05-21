@@ -1,11 +1,35 @@
+const url = require('url');
+const qrcode = require('qrcode');
 const schemas = require('../../../Utils/db/Models.js');
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
+const { table } = require('console');
+
 
 const CreateTable = async (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
     // #swagger.description = 'Allow admin to add a new table'
     // #swagger.summary = 'Add a new table'
     // #swagger.security = [{ "apiKeyAuth": [] }]
+
+    const {table_id, seats} = req.body;
+    if(!table_id || !seats) 
+        throw new BadRequestError('Bad Request Error', 'Table id and seats are required');
+
+    if(await schemas.Table.findOne({table_id}))
+        throw new ConflictError('Conflict Error', `Table ${table_id} already exists`);
+
+    // Generate a unique URL for the menu page with the embedded table ID
+    const menuPageUrl = url.format({
+        protocol: 'http',
+        hostname: 'localhost',
+        port: 3001,
+        pathname: `client/menu/${table_id}`
+    });
+
+    const qrCode = await qrcode.toDataURL(menuPageUrl);
+
+    const table = new schemas.Table({table_id, seats, url: menuPageUrl, qr_code_url: qrCode});
+    await table.save();
     
     res.status(200).send({message: 'Table added', table});
 };
@@ -16,6 +40,22 @@ const UpdateTable = async (req, res) => {
     // #swagger.summary = 'Update a table'
     // #swagger.security = [{ "apiKeyAuth": [] }]
 
+    const tableid = req.params.tableid;
+    const table = await schemas.Table.findOne({table_id: tableid});
+    const {seats} = req.body;
+
+    if(!seats) 
+        throw new BadRequestError('Bad Request Error', 'Seats are required');
+    else
+        table.seats = seats;
+
+    if(!tableid)
+        throw new BadRequestError('Bad Request Error', 'Table id is required');
+    if(!table)
+        throw new NotFoundError('Not Found Error', `Table ${tableid} not found`);
+
+    await table.save();
+
     res.status(200).send({message: 'Table updated', table});
 };
 
@@ -25,41 +65,18 @@ const DeleteTable = async (req, res) => {
     // #swagger.summary = 'Delete a table'
     // #swagger.security = [{ "apiKeyAuth": [] }]
 
+    const tableid = req.params.tableid;
+    const table = await schemas.Table.findOne({table_id: tableid});
+    if(!table)
+        throw new NotFoundError('Bad Request Error', `Table ${tableid} not found`);
+    else
+        await table.deleteOne({table_id: tableid});
+
     res.status(200).send({message: 'Table deleted', table});
-};
-
-const GenerateUniqueId = async (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate a unique table ID'
-    // #swagger.summary = 'Generate a unique table ID'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
-
-    res.status(200).send({message: 'Unique ID generated', ID});
-};
-
-const GenerateUniqueUrl = async (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate a unique URL for the table page'
-    // #swagger.summary = 'Generate a unique URL'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
-
-    res.status(200).send({message: 'Unique URL generated', url});
-};
-
-const GenerateQRCode = async (req, res) => {
-    // #swagger.tags = ['Admin / Table Manager']
-    // #swagger.description = 'Generate QR codes'
-    // #swagger.summary = 'Generate QR codes'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
-
-    res.status(200).send({message: 'QR code generated', qr});
 };
 
 module.exports = {
     CreateTable,
     UpdateTable,
-    DeleteTable,
-    GenerateUniqueId,
-    GenerateUniqueUrl,
-    GenerateQRCode
+    DeleteTable
 };

@@ -127,3 +127,43 @@ error: order is not defined, 2024-05-20T22:16:28+02:00
 error: order is not defined, 2024-05-20T22:16:43+02:00  
 error: Cannot read properties of undefined (reading 'id'), 2024-05-20T22:19:04+02:00  
 error: Cannot read properties of undefined (reading 'id'), 2024-05-20T22:21:28+02:00  
+error: Not authenticated, 2024-05-21T10:51:18+02:00  
+error: Not admin user, 2024-05-21T10:51:44+02:00  
+error: Table validation failed: qr_code_url: Cast to string failed for value "{
+  create: [Function: create],
+  toCanvas: [Function: bound renderCanvas],
+  toString: [Function: toString],
+  toDataURL: [Function: toDataURL],
+  toBuffer: [Function: toBuffer],
+  toFile: [Function: toFile],
+  toFileStream: [Function: toFileStream]
+}" (type Object) at path "qr_code_url", 2024-05-21T10:52:31+02:00  
+error: Table validation failed: qr_code_url: Cast to string failed for value "{
+  create: [Function: create],
+  toCanvas: [Function: bound renderCanvas],
+  toString: [Function: toString],
+  toDataURL: [Function: toDataURL],
+  toBuffer: [Function: toBuffer],
+  toFile: [Function: toFile],
+  toFileStream: [Function: toFileStream]
+}" (type Object) at path "qr_code_url", 2024-05-21T12:10:14+02:00  
+error: Table 2 already exists, 2024-05-21T12:11:09+02:00  
+error: Table 1 already exists, 2024-05-21T12:19:31+02:00  
+error: Table 1 already exists, 2024-05-21T12:21:28+02:00  
+error: table is not defined, 2024-05-21T12:21:52+02:00  
+error: table is not defined, 2024-05-21T12:22:32+02:00  
+error: Table id is required, 2024-05-21T12:24:44+02:00  
+error: Table id is required, 2024-05-21T12:24:50+02:00  
+error: table.save is not a function, 2024-05-21T12:25:54+02:00  
+error: table.save is not a function, 2024-05-21T12:26:35+02:00  
+error: table.save is not a function, 2024-05-21T12:26:48+02:00  
+error: table.save is not a function, 2024-05-21T12:27:06+02:00  
+error: Table validation failed: seats: Cast to Number failed for value "{ seats: '3' }" (type Object) at path "seats", 2024-05-21T12:28:18+02:00  
+error: Seats are required, 2024-05-21T12:30:04+02:00  
+error: Table 1 not found, 2024-05-21T12:32:00+02:00  
+error: Operation `adminusers.findOne()` buffering timed out after 10000ms, 2024-05-21T12:46:17+02:00  
+error: Bad Request Error, 2024-05-21T12:46:45+02:00  
+error: Operation `adminusers.findOne()` buffering timed out after 10000ms, 2024-05-21T13:41:11+02:00  
+error: Total is not defined, 2024-05-21T13:47:40+02:00  
+error: Not Found Error, 2024-05-21T13:47:54+02:00  
+error: Not Found Error, 2024-05-21T13:47:59+02:00  

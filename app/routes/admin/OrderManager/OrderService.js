@@ -9,7 +9,7 @@ const ViewAllActiveOrders = async (req, res) => {
 
     const orders = await schemas.Order.find({order_status: 'Pending'});
     if(!orders) 
-        throw new NotFoundError('Not found', 'No active orders');
+        throw new NotFoundError('Not Found Error', 'No active orders');
     
     res.status(200).send({message: 'All active orders', orders});
 };
@@ -23,8 +23,9 @@ const UpdateOrderStatus = async (req, res) => {
     const orderid = req.params.orderid;
     const {order_status} = req.body;
     const order = await schemas.Order.findOne({order_id: orderid});
+    
     if(!order) 
-        throw new NotFoundError('Not found', 'Order not found');
+        throw new NotFoundError('Not Found Error', 'Order not found');
     else
         order.order_status = order_status;
 

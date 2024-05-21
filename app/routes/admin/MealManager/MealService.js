@@ -10,18 +10,18 @@ const AddNewMeal = async (req, res) => {
     
     const {id, name, description, price, image_url, category_id, nutrition_info, is_active} = req.body;
     if(!id || !name || !price || !category_id || !image_url || !nutrition_info || !description) 
-        throw new BadRequestError('Invalid input', 'All fields are required');
+        throw new BadRequestError('Bad Request Error', 'All fields are required');
 
     if(id < 0) 
-        throw new BadRequestError('Invalid input', 'Meal ID must be a positive number');
+        throw new BadRequestError('Bad Request Error', 'Meal ID must be a positive number');
 
     const category = await schemas.MenuCategory.findOne({id: category_id});
     if(!category) 
-        throw new NotFoundError('Not found', 'Category does not exist');
+        throw new NotFoundError('Not found Error', 'Category does not exist');
 
     const meal = new schemas.Meal({id, name, description, price, image_url, category_id, nutrition_info, is_active});
     if(await schemas.Meal.findOne({id: id}))
-        throw new ConflictError('Conflict', 'A meal with the same ID already exists');
+        throw new ConflictError('Conflict Error', 'A meal with the same ID already exists');
 
     await meal.save();
 
@@ -38,7 +38,7 @@ const UpdateMeal = async (req, res) => {
     const {name, description, price, image_url, categoryId, nutrition_info, is_active, toppings} = req.body;
     const meal = await schemas.Meal.findOne({id: mealId});
     if(!meal) 
-        throw new NotFoundError('Not found', 'Meal not found');
+        throw new NotFoundError('Not Found Error', 'Meal not found');
     if(name) meal.name = name;
     if(description) meal.description = description;
     if(price) meal.price = price;
@@ -62,7 +62,7 @@ const DeleteMeal = async (req, res) => {
     const mealId = req.params.mealid;
     const meal = await schemas.Meal.findOne({id: mealId});
     if(!meal) 
-        throw new NotFoundError('Not found', 'Meal not found');    
+        throw new NotFoundError('Not Found Error', 'Meal not found');    
     else
         await schemas.Meal.deleteOne({id: mealId});
     
