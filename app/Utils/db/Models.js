@@ -38,10 +38,10 @@ const Topping = mongoose.model('Topping', ToppingSchema);
 // Orders
 const OrderSchema = new Schema({
   order_id: { type: String, required: true, unique: true },
-  table_id: Number,
+  table_id: {type: Number, required: true, ref: 'Table'},
   order_items: [{ type: Schema.Types.ObjectId, ref: 'OrderItem' }],
   total_cost: { type: Number, required: true },
-  tip: { type: Number, default: 0.00 },
+  tip_amount: { type: Number, default: 0.00 },
   payment_status: String,
   order_status: { type: String, default: 'Pending' },
   created_at: { type: Date, default: Date.now }
@@ -116,13 +116,14 @@ async function addRecords() {
   mongo.connect();
 
   const order = new Order({
-    order_id: 9,
-    table_id: 7,
+    order_id: '2',
+    table_id: '2',
     order_items: [],
-    total_cost: 10.00,
-    tip: 0.00,
+    total_cost: 13.00,
+    tip_amount: 0.00,
     payment_status: 'Paid',
     order_status: 'Pending',
+    created_at: new Date()
   });
   await order.save();
   
@@ -132,7 +133,7 @@ async function addRecords() {
 async function dropTableCollection() {
   try {
     await mongo.connect(); // Assuming you have a connect function in Connection_mongoDB.js
-    await Table.collection.drop();
+    await Order.collection.drop();
     console.log('Table collection dropped');
   } catch (error) {
     console.error('Error dropping Table collection:', error);

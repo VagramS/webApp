@@ -10,12 +10,21 @@ const Confirmation_Message = async (req, res) => {
     // #swagger.summary = 'Display a confirmation message'
     // #swagger.security = []
 
-    const order_id = req.body.order_id;
+    const order_id = req.params.orderid;
+    const order = await schemas.Order.findOne({ order_id : order_id });
 
     if (!order) 
-        throw new NotFoundError('Order not found');
+        throw new NotFoundError('Not Found Error', 'Order not found');
+    
+    if (order.payment_status !== 'Paid')
+        throw new BadRequestError('Bad Request Error', 'Payment not confirmed');
 
-    const confirmationMessage = `Order confirmed. Order number: ${order.order_id}, Total cost: ${order.total_cost}, Tip amount: ${order.tipAmount}, Table number: ${order.table.number}`;
+    const table = await schemas.Table.findOne({ table_id: order.table_id });
+
+    if(!table)
+        throw new NotFoundError('Not Found Error', 'Table not found');
+
+    const confirmationMessage = `Order number: ${order.order_id}, Total cost: ${order.total_cost}, Tip amount: ${order.tip_amount}, Table number: ${order.table_id}`;
 
     res.status(200).send({ message: "Payment confirmed", confirmationMessage });
 };

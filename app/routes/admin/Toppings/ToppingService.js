@@ -5,7 +5,7 @@ const CreateTopping = async (req, res) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to create add-on/toppings options'
     // #swagger.summary = 'Create a new topping'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const {id, name, price} = req.body;
     if(!id, !name || !price)
@@ -27,7 +27,7 @@ const UpdateTopping = async (req, res) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to update add-on/toppings options'
     // #swagger.summary = 'Update a topping'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const toppingid = req.params.toppingid;
     const {name, price} = req.body;
@@ -46,7 +46,7 @@ const DeleteTopping = async (req, res) => {
     // #swagger.tags = ['Admin / Toppings']
     // #swagger.description = 'Allow admin to delete add-on/toppings options'
     // #swagger.summary = 'Delete a topping'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const toppingid = req.params.toppingid;
     const topping = await schemas.Topping.findOne({id: toppingid});

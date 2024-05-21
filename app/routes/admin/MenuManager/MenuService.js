@@ -5,7 +5,7 @@ const CreateMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Create a menu category'
     // #swagger.summary = 'Create a menu category'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const {id, name, description} = req.body;
     if(!name || !id) 
@@ -28,7 +28,7 @@ const UpdateMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Update a menu category'
     // #swagger.summary = 'Update a menu category' 
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const categoryid = req.params.categoryid;
     const {name, description} = req.body;
@@ -52,7 +52,7 @@ const DeleteMenuCategory = async (req, res) => {
     // #swagger.tags = ['Admin / Menu Manager']
     // #swagger.description = 'Delete a menu category'
     // #swagger.summary = 'Delete a menu category'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
     
     const categoryid = req.params.categoryid;
     const category = await schemas.MenuCategory.findOne({id: categoryid});

@@ -5,7 +5,7 @@ const ViewAllActiveOrders = async (req, res) => {
     // #swagger.tags = ['Admin / Order Manager']
     // #swagger.description = 'View all active orders in real-time'
     // #swagger.summary = 'View all active orders'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const orders = await schemas.Order.find({order_status: 'Pending'});
     if(!orders) 
@@ -18,7 +18,7 @@ const UpdateOrderStatus = async (req, res) => {
     // #swagger.tags = ['Admin / Order Manager']
     // #swagger.description = 'Mark orders as fulfilled or cancelled'
     // #swagger.summary = 'Update order status'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const orderid = req.params.orderid;
     const {order_status} = req.body;

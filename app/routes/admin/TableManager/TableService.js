@@ -4,12 +4,12 @@ const schemas = require('../../../Utils/db/Models.js');
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../../../Utils/Errors/index.js');
 const { table } = require('console');
 
-
+// to fix link to menu page
 const CreateTable = async (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
     // #swagger.description = 'Allow admin to add a new table'
     // #swagger.summary = 'Add a new table'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const {table_id, seats} = req.body;
     if(!table_id || !seats) 
@@ -38,7 +38,7 @@ const UpdateTable = async (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
     // #swagger.description = 'Allow admin to update a table'
     // #swagger.summary = 'Update a table'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const tableid = req.params.tableid;
     const table = await schemas.Table.findOne({table_id: tableid});
@@ -63,7 +63,7 @@ const DeleteTable = async (req, res) => {
     // #swagger.tags = ['Admin / Table Manager']
     // #swagger.description = 'Allow admin to delete a table'
     // #swagger.summary = 'Delete a table'
-    // #swagger.security = [{ "apiKeyAuth": [] }]
+    // #swagger.security = [{ "Bearer": [] }]
 
     const tableid = req.params.tableid;
     const table = await schemas.Table.findOne({table_id: tableid});
