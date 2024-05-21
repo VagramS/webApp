@@ -20,8 +20,23 @@ const DisplayMeals = async (req, res) => {
     // #swagger.summary = 'Display all meals'
     // #swagger.security = []
     
-    let meals = await schemas.Meal.find({}, {name: 1, description: 1, price: 1, image_url: 1, _id: 0});
-    if(!meals)
+    let meals = await schemas.Meal.aggregate([
+        {
+            $group: {
+                _id: "$category_id",
+                meals: {
+                    $push: {
+                        name: "$name",
+                        description: "$description",
+                        price: "$price",
+                        image_url: "$image_url"
+                    }
+                }
+            }
+        }
+    ]);
+
+    if(!meals || meals.length === 0)
         throw new NotFoundError('Not Found Error', 'Meals not found');
 
     res.status(200).send({message: 'All the meals showed', meals});
@@ -50,7 +65,7 @@ const ViewDetailsById = async (req, res) => {
     // #swagger.security = []
 
     const mealId = req.params.mealid;
-    const meal = await schemas.Meal.findOne({id: mealId});
+    const meal = await schemas.Meal.findOne({id: mealId}, {name: 1, description: 1, price: 1, image_url: 1, _id: 0});
     if(!meal)
         throw new NotFoundError('Not Found Error', `Meal with id ${mealId} not found`);
     

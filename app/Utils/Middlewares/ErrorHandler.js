@@ -1,7 +1,7 @@
 const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../Errors/index');
 const logger = require('../../Utils/client/logger');
 
-// Description: Error handler middleware.
+// Error handler middleware.
 const ErrorHandlerMiddleware = (error, req, res, next) => {
     if (error instanceof BadRequestError || error instanceof ConflictError || error instanceof ForbiddenError || error instanceof InternalServerError || error instanceof NotFoundError || error instanceof UnauthorizedError) {
         logger.error(error.message);

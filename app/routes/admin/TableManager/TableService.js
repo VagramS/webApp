@@ -23,13 +23,16 @@ const CreateTable = async (req, res) => {
         protocol: 'http',
         hostname: 'localhost',
         port: 3001,
-        pathname: `client/menu/${table_id}`
+        pathname: `client/menu/categories${table_id}`
     });
 
     const qrCode = await qrcode.toDataURL(menuPageUrl);
 
     const table = new schemas.Table({table_id, seats, url: menuPageUrl, qr_code_url: qrCode});
-    await table.save();
+    if(!table)
+        throw new InternalServerError('Internal Server Error', 'Table could not be created');
+    else
+        await table.save();
     
     res.status(200).send({message: 'Table added', table});
 };

@@ -23,7 +23,7 @@ const verifyToken = async(req, res, next) => {
   if (!tokenExpired) {
     const admin = await schemas.AdminUser.findOne({ token });
     if (!admin) 
-      throw new UnauthorizedError('Unauthorized Error', 'Not admin user');
+      throw new UnauthorizedError('Unauthorized Error', 'Not an admin user');
     
     req.admin = admin;
   }

@@ -9,7 +9,6 @@ const DisplayPaymentConfirmation = async (req, res) => {
     res.status(200).send({message: 'All the meals showed'})
 };
 
-
 const PayWithStripe = async (req, res) => {
     // #swagger.tags = ["Client / Payment"]
     // #swagger.description = 'Allow users to pay via Stripe.'
