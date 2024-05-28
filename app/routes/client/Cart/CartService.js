@@ -65,11 +65,6 @@ const AdjustQuantity = async (req, res) => {
 };
 
 
-
-
-
-
-
 const DeleteFromCart = async (req, res) => {
     // #swagger.tags = ["Client / Cart"]
     // #swagger.description = 'Ability to remove items from the cart.'

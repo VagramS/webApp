@@ -65,6 +65,10 @@ const OrderItem = mongoose.model('OrderItem', OrderItemSchema);
 const CartSchema = new Schema({
   cart_id: { type: Number, required: true, unique: true },
   cart_items: [{ type: Schema.Types.ObjectId, ref: 'CartItems' }],
+  table_id: { type: Number, required: true, ref: 'Table' },
+  total_cost: { type: Number, required: true },
+  tip_amount: { type: Number, default: 0.00 },
+  comment: String,
   created_at: { type: Date, default: Date.now }
 });
 const Cart = mongoose.model('Cart', CartSchema);
@@ -133,7 +137,7 @@ async function addRecords() {
 async function dropTableCollection() {
   try {
     await mongo.connect(); // Assuming you have a connect function in Connection_mongoDB.js
-    await Order.collection.drop();
+    await Cart.collection.drop();
     console.log('Table collection dropped');
   } catch (error) {
     console.error('Error dropping Table collection:', error);

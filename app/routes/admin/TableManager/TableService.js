@@ -23,7 +23,7 @@ const CreateTable = async (req, res) => {
         protocol: 'http',
         hostname: 'localhost',
         port: 3001,
-        pathname: `client/menu/categories${table_id}`
+        pathname: `client/menu/categories?table_id=${table_id}`
     });
 
     const qrCode = await qrcode.toDataURL(menuPageUrl);
