@@ -63,10 +63,22 @@ const OrderItem = mongoose.model('OrderItem', OrderItemSchema);
 
 // Cart
 const CartSchema = new Schema({
-  cart_id: { type: Number, required: true, unique: true },
-  cart_items: [{ type: Schema.Types.ObjectId, ref: 'CartItems' }],
-  table_id: { type: Number, required: true, ref: 'Table' },
-  total_cost: { type: Number, required: true },
+  table_id: { type: Number, required: true, unique: true, ref: 'Table'},
+  cart_items: [{ meal_id: {
+    type: Number,
+    ref: 'Meal',
+    required: true
+  },
+  quantity: {
+    type: Number,
+    required: true
+  },
+  comments: {
+    type: String,
+    required: false
+  } 
+}],
+  total_cost: { type: Number, required: true, },
   tip_amount: { type: Number, default: 0.00 },
   comment: String,
   created_at: { type: Date, default: Date.now }
@@ -74,15 +86,13 @@ const CartSchema = new Schema({
 const Cart = mongoose.model('Cart', CartSchema);
 
 
-// Cart Items
-const CartItemsSchema = new Schema({
-  cart_id: { type: Number, ref: 'Cart' },
+// Cart Item
+const CartItemSchema = new Schema({
   meal_id: { type: Number, ref: 'Meal' },
   quantity: { type: Number, required: true },
-  comments: String,
-  toppings: [{ type: Schema.Types.ObjectId, ref: 'Topping' }]
+  comment: String
 });
-const CartItems = mongoose.model('CartItems', CartItemsSchema);
+const CartItem = mongoose.model('CartItem', CartItemSchema);
 
 
 // Admin Users
@@ -119,17 +129,26 @@ const Table = mongoose.model('Table', TableSchema);
 async function addRecords() {
   mongo.connect();
 
-  const order = new Order({
-    order_id: '2',
-    table_id: '2',
-    order_items: [],
-    total_cost: 13.00,
-    tip_amount: 0.00,
-    payment_status: 'Paid',
-    order_status: 'Pending',
-    created_at: new Date()
+  const cart = new Cart({
+    table_id: "3",
+    cart_items: [
+      {
+        meal_id: "4",
+        quantity: "1",
+        comments: "no comments"
+      },
+      {
+        meal_id: "5",
+        quantity: "2",
+        comments: "no onins"
+      }
+    ],
+    total_cost: "0.00",
+    tip_amount: "2.00",
+    comment: 'no comments',
+    created_at: Date.now()
   });
-  await order.save();
+  await cart.save();
   
   console.log('Records added');
 }
@@ -137,7 +156,7 @@ async function addRecords() {
 async function dropTableCollection() {
   try {
     await mongo.connect(); // Assuming you have a connect function in Connection_mongoDB.js
-    await Cart.collection.drop();
+    await CartItem.collection.drop();
     console.log('Table collection dropped');
   } catch (error) {
     console.error('Error dropping Table collection:', error);
@@ -154,7 +173,7 @@ module.exports = {
   Order,
   OrderItem,
   Cart,
-  CartItems,
+  CartItem,
   AdminUser,
   Payment,
   Table

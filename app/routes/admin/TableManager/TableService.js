@@ -29,6 +29,9 @@ const CreateTable = async (req, res) => {
     const qrCode = await qrcode.toDataURL(menuPageUrl);
 
     const table = new schemas.Table({table_id, seats, url: menuPageUrl, qr_code_url: qrCode});
+    const cart = new schemas.Cart({table_id, cart_items: [], total_cost: 0, tip_amount: 0, comment: '', created_at: Date.now()});
+    await cart.save();
+    
     if(!table)
         throw new InternalServerError('Internal Server Error', 'Table could not be created');
     else

@@ -119,13 +119,21 @@
         "security": []
       }
     },
-    "/client/cart/": {
+    "/client/cart/{tableid}": {
       "get": {
         "tags": [
           "Client / Cart"
         ],
         "summary": "Show the cart",
         "description": "Display the selected items in the cart.",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -134,13 +142,21 @@
         "security": []
       }
     },
-    "/client/cart/total": {
+    "/client/cart/total/{tableid}": {
       "get": {
         "tags": [
           "Client / Cart"
         ],
         "summary": "Display the total cost",
         "description": "Display the total cost of the order.",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -149,7 +165,7 @@
         "security": []
       }
     },
-    "/client/cart/add/{productId}": {
+    "/client/cart/add/{mealid}/{tableid}": {
       "post": {
         "tags": [
           "Client / Cart"
@@ -158,11 +174,31 @@
         "description": "Allow users to add meals to the cart from both the menu page and the product page.",
         "parameters": [
           {
-            "name": "productId",
+            "name": "mealid",
             "in": "path",
             "required": true,
-            "type": "Integer",
-            "description": "Product ID"
+            "type": "string"
+          },
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": "any"
+                },
+                "comment": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -173,50 +209,37 @@
         "security": []
       }
     },
-    "/client/cart/Comment": {
-      "post": {
-        "tags": [
-          "Client / Cart"
-        ],
-        "summary": "Add a comment to the order",
-        "description": "Ability to add Instructions / Comments (Text field)",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
-    "/client/cart/tip": {
-      "post": {
-        "tags": [
-          "Client / Cart"
-        ],
-        "summary": "Add a tip to the order",
-        "description": "Include a tipping option at checkout, allowing users to select a predefined tip amount or enter a custom tip amount.",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
-    "/client/cart/update/{productId}": {
+    "/client/cart/update/{tableid}": {
       "patch": {
         "tags": [
           "Client / Cart"
         ],
-        "summary": "Adjust the quantity of a product in the cart",
-        "description": "Ability to adjust quantity of items from the cart.",
+        "summary": "Update the cart",
+        "description": "Ability to update the cart by adjusting the quantity of a product or adding a comment.",
         "parameters": [
           {
-            "name": "productId",
+            "name": "tableid",
             "in": "path",
             "required": true,
-            "type": "Integer",
-            "description": "Product ID"
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "meal_id": {
+                  "example": "any"
+                },
+                "quantity": {
+                  "example": "any"
+                },
+                "comment": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -227,7 +250,7 @@
         "security": []
       }
     },
-    "/client/cart/remove/{productId}": {
+    "/client/cart/remove/{mealid}/{tableid}": {
       "delete": {
         "tags": [
           "Client / Cart"
@@ -236,11 +259,16 @@
         "description": "Ability to remove items from the cart.",
         "parameters": [
           {
-            "name": "productId",
+            "name": "mealid",
             "in": "path",
             "required": true,
-            "type": "Integer",
-            "description": "Product ID"
+            "type": "string"
+          },
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

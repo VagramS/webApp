@@ -22,14 +22,25 @@ const DisplayMeals = async (req, res) => {
     
     let meals = await schemas.Meal.aggregate([
         {
+            $lookup: {
+                from: 'menucategories',  // This should match the MongoDB collection name for MenuCategories
+                localField: 'category_id',
+                foreignField: 'id',
+                as: 'category_info'
+            }
+        },
+        {
+            $unwind: '$category_info'  // Unwind the array to simplify the data structure if each meal has only one category
+        },
+        {
             $group: {
-                _id: "$category_id",
+                _id: '$category_info.name',  // Group by category name instead of category_id
                 meals: {
                     $push: {
-                        name: "$name",
-                        description: "$description",
-                        price: "$price",
-                        image_url: "$image_url"
+                        name: '$name',
+                        description: '$description',
+                        price: '$price',
+                        image_url: '$image_url'
                     }
                 }
             }
@@ -39,8 +50,9 @@ const DisplayMeals = async (req, res) => {
     if(!meals || meals.length === 0)
         throw new NotFoundError('Not Found Error', 'Meals not found');
 
-    res.status(200).send({message: 'All the meals showed', meals});
+    res.status(200).send({message: 'All the meals by categories showed', meals});
 };
+
 
 const FilterByCategory = async (req, res) => {
     // #swagger.tags = ["Client / Menu"]
@@ -65,7 +77,7 @@ const ViewDetailsById = async (req, res) => {
     // #swagger.security = []
 
     const mealId = req.params.mealid;
-    const meal = await schemas.Meal.findOne({id: mealId}, {name: 1, description: 1, price: 1, image_url: 1, _id: 0});
+    const meal = await schemas.Meal.findOne({id: mealId}, {name: 1, description: 1, price: 1, image_url: 1});
     if(!meal)
         throw new NotFoundError('Not Found Error', `Meal with id ${mealId} not found`);
     
