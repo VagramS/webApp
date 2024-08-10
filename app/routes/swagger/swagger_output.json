@@ -7,10 +7,7 @@
   },
   "host": "localhost:3001",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
@@ -22,9 +19,7 @@
   "paths": {
     "/client/menu/categories": {
       "get": {
-        "tags": [
-          "Client / Menu"
-        ],
+        "tags": ["Client / Menu"],
         "summary": "Display all categories",
         "description": "Display all available categories (Snacks, Salads, Main, Drinks… etc).",
         "responses": {
@@ -37,9 +32,7 @@
     },
     "/client/menu/meals": {
       "get": {
-        "tags": [
-          "Client / Menu"
-        ],
+        "tags": ["Client / Menu"],
         "summary": "Display all meals",
         "description": "Display all available meals grouped by categories.",
         "responses": {
@@ -52,9 +45,7 @@
     },
     "/client/menu/meals/{categoryid}": {
       "get": {
-        "tags": [
-          "Client / Menu"
-        ],
+        "tags": ["Client / Menu"],
         "summary": "Filter meals by category",
         "description": "Allow users to filter meals by category.",
         "parameters": [
@@ -75,9 +66,7 @@
     },
     "/client/menu/meal/{mealid}": {
       "get": {
-        "tags": [
-          "Client / Menu"
-        ],
+        "tags": ["Client / Menu"],
         "summary": "View meal details",
         "description": "Allow users to view details of a specific meal.",
         "parameters": [
@@ -98,9 +87,7 @@
     },
     "/client/product/{productId}": {
       "get": {
-        "tags": [
-          "Client / Product"
-        ],
+        "tags": ["Client / Product"],
         "summary": "Display product details",
         "description": "Display detailed information about a selected meal.",
         "parameters": [
@@ -121,9 +108,7 @@
     },
     "/client/cart/{tableid}": {
       "get": {
-        "tags": [
-          "Client / Cart"
-        ],
+        "tags": ["Client / Cart"],
         "summary": "Show the cart",
         "description": "Display the selected items in the cart.",
         "parameters": [
@@ -144,9 +129,7 @@
     },
     "/client/cart/total/{tableid}": {
       "get": {
-        "tags": [
-          "Client / Cart"
-        ],
+        "tags": ["Client / Cart"],
         "summary": "Display the total cost",
         "description": "Display the total cost of the order.",
         "parameters": [
@@ -167,9 +150,7 @@
     },
     "/client/cart/add/{mealid}/{tableid}": {
       "post": {
-        "tags": [
-          "Client / Cart"
-        ],
+        "tags": ["Client / Cart"],
         "summary": "Add a product to the cart",
         "description": "Allow users to add meals to the cart from both the menu page and the product page.",
         "parameters": [
@@ -211,9 +192,7 @@
     },
     "/client/cart/update/{tableid}": {
       "patch": {
-        "tags": [
-          "Client / Cart"
-        ],
+        "tags": ["Client / Cart"],
         "summary": "Update the cart",
         "description": "Ability to update the cart by adjusting the quantity of a product or adding a comment.",
         "parameters": [
@@ -252,9 +231,7 @@
     },
     "/client/cart/remove/{mealid}/{tableid}": {
       "delete": {
-        "tags": [
-          "Client / Cart"
-        ],
+        "tags": ["Client / Cart"],
         "summary": "Remove a product from the cart",
         "description": "Ability to remove items from the cart.",
         "parameters": [
@@ -281,9 +258,7 @@
     },
     "/client/payment/confirmation": {
       "get": {
-        "tags": [
-          "Client / Payment"
-        ],
+        "tags": ["Client / Payment"],
         "summary": "Display payment confirmation",
         "description": "Upon successful payment, display a confirmation message along with the order number, total cost, tip amount, and table number.",
         "responses": {
@@ -296,9 +271,7 @@
     },
     "/client/payment/stripe": {
       "post": {
-        "tags": [
-          "Client / Payment"
-        ],
+        "tags": ["Client / Payment"],
         "summary": "Pay with Stripe",
         "description": "Allow users to pay via Stripe.",
         "responses": {
@@ -311,9 +284,7 @@
     },
     "/client/payment/complete": {
       "post": {
-        "tags": [
-          "Client / Payment"
-        ],
+        "tags": ["Client / Payment"],
         "summary": "Complete payment",
         "description": "Allow users to enter payment details and complete the transaction.",
         "responses": {
@@ -326,9 +297,7 @@
     },
     "/client/payment/applepay": {
       "post": {
-        "tags": [
-          "Client / Payment"
-        ],
+        "tags": ["Client / Payment"],
         "summary": "Pay with Apple Pay",
         "description": "Allow users to pay via Apple Pay.",
         "responses": {
@@ -341,9 +310,7 @@
     },
     "/client/payment/status": {
       "post": {
-        "tags": [
-          "Client / Payment"
-        ],
+        "tags": ["Client / Payment"],
         "summary": "Show payment status",
         "description": "Handle successful and failed payment transactions.",
         "responses": {
@@ -356,9 +323,7 @@
     },
     "/client/order/confirmation/{orderid}": {
       "get": {
-        "tags": [
-          "Client / Order"
-        ],
+        "tags": ["Client / Order"],
         "summary": "Display a confirmation message",
         "description": "Display a confirmation message to the client after a successful payment.",
         "parameters": [
@@ -379,9 +344,7 @@
     },
     "/admin/auth/registration": {
       "post": {
-        "tags": [
-          "Admin / Auth"
-        ],
+        "tags": ["Admin / Auth"],
         "summary": "Admin registration",
         "description": "Secure registration system for admin users.",
         "parameters": [
@@ -411,9 +374,7 @@
     },
     "/admin/auth/login": {
       "post": {
-        "tags": [
-          "Admin / Auth"
-        ],
+        "tags": ["Admin / Auth"],
         "summary": "Admin login",
         "description": "Secure login system for admin users.",
         "parameters": [
@@ -443,9 +404,7 @@
     },
     "/admin/menu/create": {
       "post": {
-        "tags": [
-          "Admin / Menu Manager"
-        ],
+        "tags": ["Admin / Menu Manager"],
         "summary": "Create a menu category",
         "description": "Create a menu category",
         "parameters": [
@@ -482,9 +441,7 @@
     },
     "/admin/menu/update/{categoryid}": {
       "patch": {
-        "tags": [
-          "Admin / Menu Manager"
-        ],
+        "tags": ["Admin / Menu Manager"],
         "summary": "Update a menu category",
         "description": "Update a menu category",
         "parameters": [
@@ -524,9 +481,7 @@
     },
     "/admin/menu/delete/{categoryid}": {
       "delete": {
-        "tags": [
-          "Admin / Menu Manager"
-        ],
+        "tags": ["Admin / Menu Manager"],
         "summary": "Delete a menu category",
         "description": "Delete a menu category",
         "parameters": [
@@ -551,9 +506,7 @@
     },
     "/admin/toppings/create": {
       "post": {
-        "tags": [
-          "Admin / Toppings"
-        ],
+        "tags": ["Admin / Toppings"],
         "summary": "Create a new topping",
         "description": "Allow admin to create add-on/toppings options",
         "parameters": [
@@ -590,9 +543,7 @@
     },
     "/admin/toppings/update/{toppingid}": {
       "patch": {
-        "tags": [
-          "Admin / Toppings"
-        ],
+        "tags": ["Admin / Toppings"],
         "summary": "Update a topping",
         "description": "Allow admin to update add-on/toppings options",
         "parameters": [
@@ -632,9 +583,7 @@
     },
     "/admin/toppings/delete/{toppingid}": {
       "delete": {
-        "tags": [
-          "Admin / Toppings"
-        ],
+        "tags": ["Admin / Toppings"],
         "summary": "Delete a topping",
         "description": "Allow admin to delete add-on/toppings options",
         "parameters": [
@@ -659,9 +608,7 @@
     },
     "/admin/meals/add": {
       "post": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
+        "tags": ["Admin / Meal Manager"],
         "summary": "Add a new meal",
         "description": "Allow admin to add a new meal",
         "parameters": [
@@ -713,9 +660,7 @@
     },
     "/admin/meals/update/{mealid}": {
       "patch": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
+        "tags": ["Admin / Meal Manager"],
         "summary": "Update a meal",
         "description": "Allow admin to update a meal",
         "parameters": [
@@ -773,9 +718,7 @@
     },
     "/admin/meals/delete/{mealid}": {
       "delete": {
-        "tags": [
-          "Admin / Meal Manager"
-        ],
+        "tags": ["Admin / Meal Manager"],
         "summary": "Delete a meal",
         "description": "Allow admin to delete a meal",
         "parameters": [
@@ -800,9 +743,7 @@
     },
     "/admin/orders/view": {
       "get": {
-        "tags": [
-          "Admin / Order Manager"
-        ],
+        "tags": ["Admin / Order Manager"],
         "summary": "View all active orders",
         "description": "View all active orders in real-time",
         "responses": {
@@ -819,9 +760,7 @@
     },
     "/admin/orders/status/{orderid}": {
       "patch": {
-        "tags": [
-          "Admin / Order Manager"
-        ],
+        "tags": ["Admin / Order Manager"],
         "summary": "Update order status",
         "description": "Mark orders as fulfilled or cancelled",
         "parameters": [
@@ -858,9 +797,7 @@
     },
     "/admin/tables/create": {
       "post": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
+        "tags": ["Admin / Table Manager"],
         "summary": "Add a new table",
         "description": "Allow admin to add a new table",
         "parameters": [
@@ -894,9 +831,7 @@
     },
     "/admin/tables/update/{tableid}": {
       "patch": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
+        "tags": ["Admin / Table Manager"],
         "summary": "Update a table",
         "description": "Allow admin to update a table",
         "parameters": [
@@ -933,9 +868,7 @@
     },
     "/admin/tables/delete/{tableid}": {
       "delete": {
-        "tags": [
-          "Admin / Table Manager"
-        ],
+        "tags": ["Admin / Table Manager"],
         "summary": "Delete a table",
         "description": "Allow admin to delete a table",
         "parameters": [

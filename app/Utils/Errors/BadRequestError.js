@@ -1,9 +1,9 @@
-const BaseError = require('./BaseError');
+const BaseError = require("./BaseError");
 
-class BadRequestError extends BaseError{
-    constructor(message, data){
-        super(400, message, data);
-    }
+class BadRequestError extends BaseError {
+  constructor(message, data) {
+    super(400, message, data);
+  }
 }
 
 module.exports = BadRequestError;
