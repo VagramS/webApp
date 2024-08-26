@@ -43,7 +43,7 @@ const swaggerOptions = {
 const outputFile = "./app/routes/swagger/swagger_output.json";
 const endpointsFiles = ["app/routes/mainRouter.js"];
 
-//swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc);
 
 router.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc, swaggerOptions));
 

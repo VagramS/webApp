@@ -3,7 +3,7 @@ const CartService = require("./CartService");
 
 router.get("/:tableid", CartService.ShowCart);
 
-router.get("/total/:tableid", CartService.DisplayTotalCost);
+router.get("/total/:tableid", CartService.DisplayTotalCostOfTable);
 
 router.post("/add/:mealid/:tableid", CartService.AddToCart);
 

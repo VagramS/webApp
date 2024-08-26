@@ -20,7 +20,7 @@ const ShowCart = async (req, res) => {
     return res.status(200).send({ message: "Cart is empty" });
   else {
     // Find all meals that have a meal_id in meal_ids
-    meals = await schemas.Meal.find(
+    const meals = await schemas.Meal.find(
       { id: { $in: meal_ids } },
       { _id: 0, name: 1, quantity: 1, price: 1, toppings: 1 },
     );
@@ -31,7 +31,7 @@ const ShowCart = async (req, res) => {
     .send({ message: "Cart items showed", meals, total_cost: cart.total_cost });
 };
 
-const DisplayTotalCost = async (req, res) => {
+const DisplayTotalCostOfTable = async (req, res) => {
   // #swagger.tags = ["Client / Cart"]
   // #swagger.description = 'Display the total cost of the order.'
   // #swagger.summary = 'Display the total cost'
@@ -48,7 +48,7 @@ const DisplayTotalCost = async (req, res) => {
     return res.status(200).send({ message: "Cart is empty" });
   else {
     const meals = await schemas.Meal.find({ id: { $in: meal_ids } });
-    Total = meals.reduce((sum, meal) => {
+    const Total = meals.reduce((sum, meal) => {
       // Find the cart item for this meal
       const cartItem = cart.cart_items.find((item) => item.meal_id === meal.id);
       // Add the cost of this meal to the sum
@@ -104,6 +104,7 @@ const Update = async (req, res) => {
     const meal = meals.find((cartItem) => cartItem.id.toString() === meal_id);
     if (!meal) throw new NotFoundError("Not Found Error", `Meal not found`);
 
+    let deleted_meal;
     if (quantity) meal.quantity = quantity;
     if (meal.quantity == 0)
       deleted_meal = await cart_items.deleteOne({ meal_id: meal_id });
@@ -139,5 +140,5 @@ module.exports = {
   ShowCart,
   DeleteFromCart,
   Update,
-  DisplayTotalCost,
+  DisplayTotalCostOfTable,
 };
