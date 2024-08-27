@@ -1,49 +1,44 @@
-const jwt = require("jsonwebtoken");
-const schemas = require("../db/Models.js");
-const {
-  BadRequestError,
-  UnauthorizedError
-} = require("../Errors/index.js");
-const { check, validationResult } = require("express-validator");
-const { secret } = require("../../../config.js");
+const jwt = require('jsonwebtoken');
+const schemas = require('../db/Models.js');
+const {BadRequestError, ConflictError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError} = require('../Errors/index.js');
+const { check, validationResult } = require('express-validator');
+const {secret} = require('../../../config.js');
 
-const verifyToken = async (req, res, next) => {
+const verifyToken = async(req, res, next) => {
   const authorizationHeader = req.headers?.authorization;
-  if (!authorizationHeader)
-    throw new UnauthorizedError("Unauthorized Error", "Not authenticated");
+  if (!authorizationHeader) 
+    throw new UnauthorizedError('Unauthorized Error', 'Not authenticated');
 
-  const token = authorizationHeader.split(" ")[1];
+  const token = authorizationHeader.split(' ')[1];
 
   // check if token expired
   let tokenExpired = false;
   jwt.verify(token, secret, (err) => {
     if (err) {
       tokenExpired = true;
-      throw new UnauthorizedError("Unauthorized Error", "Token expired");
+      throw new UnauthorizedError('Unauthorized Error', 'Token expired');
     }
   });
 
   if (!tokenExpired) {
     const admin = await schemas.AdminUser.findOne({ token });
-    if (!admin)
-      throw new UnauthorizedError("Unauthorized Error", "Not an admin user");
-
+    if (!admin) 
+      throw new UnauthorizedError('Unauthorized Error', 'Not an admin user');
+    
     req.admin = admin;
   }
   next();
-};
+}
 
 const verifyRegistration = [
-  check("username", "Username cannot be null").notEmpty(),
-  check("password", "Password should contain at least 4 symbols").isLength({
-    min: 4,
-  }),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-      throw new BadRequestError("Bad Request Error", errors.array());
-    next();
-  },
+    check('username', 'Username cannot be null').notEmpty(),
+    check('password', 'Password should contain at least 4 symbols').isLength({ min: 4 }),
+    (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) 
+        throw new BadRequestError('Bad Request Error', errors.array()); 
+      next();
+    }
 ];
 
-module.exports = { verifyToken, verifyRegistration };
+module.exports = {verifyToken, verifyRegistration};

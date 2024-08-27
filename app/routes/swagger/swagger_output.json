@@ -96,29 +96,6 @@
         "security": []
       }
     },
-    "/client/product/{productId}": {
-      "get": {
-        "tags": [
-          "Client / Product"
-        ],
-        "summary": "Display product details",
-        "description": "Display detailed information about a selected meal.",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
     "/client/cart/{tableid}": {
       "get": {
         "tags": [
@@ -126,29 +103,6 @@
         ],
         "summary": "Show the cart",
         "description": "Display the selected items in the cart.",
-        "parameters": [
-          {
-            "name": "tableid",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "security": []
-      }
-    },
-    "/client/cart/total/{tableid}": {
-      "get": {
-        "tags": [
-          "Client / Cart"
-        ],
-        "summary": "Display the total cost",
-        "description": "Display the total cost of the order.",
         "parameters": [
           {
             "name": "tableid",
@@ -229,7 +183,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "meal_id": {
+                "mealId": {
                   "example": "any"
                 },
                 "quantity": {
@@ -250,7 +204,7 @@
         "security": []
       }
     },
-    "/client/cart/remove/{mealid}/{tableid}": {
+    "/client/cart/delete/{mealid}/{tableid}": {
       "delete": {
         "tags": [
           "Client / Cart"
