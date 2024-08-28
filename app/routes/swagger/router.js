@@ -33,7 +33,8 @@ const swaggerOptions = {
       if (token && !token.startsWith('Bearer ')) {
         req.headers.Authorization = `Bearer ${token}`;
       }
-      return req;
+      
+return req;
     },
   },
 };

@@ -20,7 +20,8 @@ const Registration = async (req, res) => {
   const token = jwt.sign({ username }, secret, process.env.JWT_SECRET, { expiresIn: '6h' });
   const newAdminUser = new schemas.AdminUser({ username, password: hashedPassword, token });
   await newAdminUser.save();
-  return res.status(200).send({ messsage: 'User created successfully' });
+  
+return res.status(200).send({ messsage: 'User created successfully' });
 };
 
 const Login = async (req, res) => {

@@ -1,3 +1,4 @@
+const redisClient = require('../../../Utils/client/redisClient');
 const schemas = require('../../../Utils/db/Models');
 const { BadRequestError, ConflictError, NotFoundError } = require('../../../Utils/Errors/index');
 
@@ -21,6 +22,10 @@ const CreateMenuCategory = async (req, res) => {
 
   await category.save();
 
+  // Clear the cache
+  await redisClient.del('ByCategory');
+  await redisClient.del('AllCategories');
+
   res.status(200).send({ message: 'Menu Category created', category });
 };
 
@@ -43,7 +48,12 @@ const UpdateMenuCategory = async (req, res) => {
   }
   if (description)
     category.description = description;
+
   await category.save();
+
+  // Clear the cache
+  await redisClient.del('ByCategory');
+  await redisClient.del('AllCategories');
 
   res.status(200).send({ message: 'Menu Category updated', category });
 };
@@ -60,6 +70,10 @@ const DeleteMenuCategory = async (req, res) => {
     throw new NotFoundError('Not Found Error', 'Category not found');
   else
     await schemas.MenuCategory.deleteOne({ id: categoryid });
+
+  // Clear the cache
+  await redisClient.del('ByCategory');
+  await redisClient.del('AllCategories');
 
   res.status(200).send({ message: 'Menu Category deleted', category });
 };

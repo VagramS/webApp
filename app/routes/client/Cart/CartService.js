@@ -38,7 +38,8 @@ const ShowCart = async (req, res) => {
           comments: item.comments,
         };
       }
-      return null;
+      
+return null;
     }),
   );
 

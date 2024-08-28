@@ -428,6 +428,25 @@
         ]
       }
     },
+    "/admin/toppings/view": {
+      "get": {
+        "tags": [
+          "Admin / Toppings"
+        ],
+        "summary": "View all toppings",
+        "description": "Allow admin to view all the avaliable add-on/toppings options",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/admin/toppings/create": {
       "post": {
         "tags": [

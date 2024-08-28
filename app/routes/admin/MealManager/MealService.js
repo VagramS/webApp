@@ -1,3 +1,4 @@
+const redisClient = require('../../../Utils/client/redisClient');
 const schemas = require('../../../Utils/db/Models');
 const { BadRequestError, ConflictError, NotFoundError } = require('../../../Utils/Errors/index');
 
@@ -28,6 +29,9 @@ const AddNewMeal = async (req, res) => {
 
   await meal.save();
 
+  // Clear the cache
+  await redisClient.del('AllMeals');
+
   res.status(200).send({ message: 'The meal added', meal });
 };
 
@@ -55,6 +59,9 @@ const UpdateMeal = async (req, res) => {
 
   await meal.save();
 
+  // Clear the cache
+  await redisClient.del('AllMeals');
+
   res.status(200).send({ message: 'The meal updated', meal });
 };
 
@@ -70,6 +77,9 @@ const DeleteMeal = async (req, res) => {
     throw new NotFoundError('Not Found Error', 'Meal not found');
   else
     await schemas.Meal.deleteOne({ id: mealId });
+
+  // Clear the cache
+  await redisClient.del('AllMeals');
 
   res.status(200).send({ message: 'The meal deleted', meal });
 };
