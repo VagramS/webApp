@@ -8,4 +8,4 @@ router.use('/menu', menuRouter);
 router.use('/cart', cartRouter);
 router.use('/order', orderRouter);
 
-module.exports = {Client_Router: router};
+module.exports = { Client_Router: router };

@@ -9,7 +9,7 @@ router.use('/admin', Admin_Router);
 router.use('/api-docs', Swagger_Router);
 
 module.exports = {
-    Admin_Router,
-    Client_Router,
-    Swagger_Router,
+  Admin_Router,
+  Client_Router,
+  Swagger_Router,
 };

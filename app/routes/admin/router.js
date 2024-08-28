@@ -14,4 +14,4 @@ router.use('/meals', mealManagerRouter);
 router.use('/orders', orderManagerRouter);
 router.use('/tables', tableManagerRouter);
 
-module.exports = {Admin_Router: router};
+module.exports = { Admin_Router: router };
