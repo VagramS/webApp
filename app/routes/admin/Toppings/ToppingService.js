@@ -64,10 +64,21 @@ const UpdateTopping = async (req, res) => {
   const { toppingid } = req.params;
   const { name, price } = req.body;
   const topping = await schemas.Topping.findOne({ id: toppingid });
+
   if (!topping)
-    throw new NotFoundError('Not Found Error', 'Topping not found');
-  if (name) topping.name = name;
-  if (price) topping.price = price;
+    throw new NotFoundError('Not Found Error', `Topping with ID ${toppingid} not found`);
+
+  if (name) {
+    if (await schemas.Topping.findOne({ name }))
+      throw new ConflictError('Conflict Error', 'Topping name already exists');
+    topping.name = name;
+  }
+
+  if (price !== undefined) {
+    if (typeof price !== 'number') 
+      throw new BadRequestError('Invalid Data', 'Price must be a number');
+    topping.price = price; // Correctly assign the price
+  }
 
   await topping.save();
 

@@ -43,7 +43,7 @@ const UpdateMenuCategory = async (req, res) => {
     throw new NotFoundError('Not Found Error', 'Category not found');
   if (name) {
     if (await schemas.MenuCategory.findOne({ name }))
-      throw new ConflictError('Conflict Error', 'Category name exists');
+      throw new ConflictError('Conflict Error', 'Category name already exists');
     category.name = name;
   }
   if (description)

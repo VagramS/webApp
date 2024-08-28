@@ -9,6 +9,10 @@ const {
   NotFoundError,
 } = require('../../../Utils/Errors/index');
 
+const now = new Date();
+const offset = now.getTimezoneOffset(); // Offset in minutes
+const localTime = new Date(now.getTime() - offset * 60000); // Adjust to local time
+
 // to fix link to menu page
 const CreateTable = async (req, res) => {
   // #swagger.tags = ['Admin / Table Manager']
@@ -16,9 +20,12 @@ const CreateTable = async (req, res) => {
   // #swagger.summary = 'Add a new table'
   // #swagger.security = [{ "Bearer": [] }]
 
-  const { table_id, seats } = req.body;
+  const { table_id, seats, is_avaliable } = req.body;
   if (!table_id || !seats)
     throw new BadRequestError('Bad Request Error', 'Table id and seats are required');
+
+  if(is_avaliable)
+    table.is_avaliable = is_avaliable;
 
   if (await schemas.Table.findOne({ table_id }))
     throw new ConflictError('Conflict Error', `Table ${table_id} already exists`);
@@ -34,10 +41,10 @@ const CreateTable = async (req, res) => {
   const qrCode = await qrcode.toDataURL(menuPageUrl);
 
   const table = new schemas.Table({
-    table_id, seats, url: menuPageUrl, qr_code_url: qrCode,
+    table_id, seats, is_avaliable, url: menuPageUrl, qr_code_url: qrCode,
   });
   const cart = new schemas.Cart({
-    table_id, cart_items: [], total_cost: 0, tip_amount: 0, comment: '', created_at: Date.now(),
+    table_id, cart_items: [], total_cost: 0, tip_amount: 0, comment: '', created_at: localTime,
   });
   await cart.save();
 
