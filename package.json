@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "test": "jest --passWithNoTests",
-    "build": "echo 'No build step necessary'"
   },
   "repository": {
     "type": "git",
