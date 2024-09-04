@@ -1,27 +1,31 @@
-name: CI/CD Pipeline for Node.js
+name: CI Pipeline for Node.js
 
 on:
   push:
     branches:
-      - main
+      - main  # Runs the pipeline when code is pushed to the main branch
   pull_request:
     branches:
-      - main
+      - main  # Runs the pipeline on pull requests to the main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 30  # Set timeout to 30 minutes
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Check out the code from the repository
+      
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3  # Set up Node.js environment
         with:
-          node-version: '16.x'
+          node-version: '16.x'  # Use Node.js version 16.x
+      
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Install project dependencies
+
       - name: Run tests
-        run: npm test
+        run: npm test  # Run the test suite defined in package.json
+
       - name: Build the project
-        run: npm run build
+        run: npm run build  # Optional: build step if your project needs one
