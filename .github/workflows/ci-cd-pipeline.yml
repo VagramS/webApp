@@ -26,6 +26,3 @@ jobs:
 
       - name: Run tests
         run: npm test  # Run the test suite defined in package.json
-
-      - name: Build the project
-        run: npm run build  # Optional: build step if your project needs one
