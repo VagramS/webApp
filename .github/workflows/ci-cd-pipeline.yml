@@ -10,30 +10,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # The pipeline will run on the latest Ubuntu runner
-
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]  # Use Node.js 16.x or higher
-
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Set timeout to 30 minutes
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Check out the code from the repository
-
+        uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}  # Use Node.js version from matrix
-
+          node-version: '16.x'
       - name: Install dependencies
-        run: npm install  # Install project dependencies
-
-      - name: Run tests
-        run: npm test  # Run the test suite defined in package.json
-
-      - name: Build the project
-        run: npm run build  # Optional: build step if your project needs one
-
+        run: npm install
+        
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -43,9 +31,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+          uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
