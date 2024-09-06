@@ -34,9 +34,9 @@ jobs:
       # Step 4: Build the Docker image
       - name: Build and tag Docker image
         run: |
-          docker build -t your-dockerhub-username/your-app-name:latest .
+          docker build -t vahrams/my-webapp:latest .
 
       # Step 5: Push the Docker image to Docker Hub (Optional)
       - name: Push Docker image to Docker Hub
         run: |
-          docker push your-dockerhub-username/your-app-name:latest
+          docker push vahrams/my-webapp:latest
