@@ -48,6 +48,7 @@ const OrderSchema = new Schema({
   total_cost: { type: Number, required: true },
   tip_amount: { type: Number, default: 0.00 },
   order_status: { type: String, default: 'Pending' },
+  email: { type: String, required: true },
   created_at: { type: Date, default: localTime },
 }, { versionKey: false });
 
@@ -119,12 +120,13 @@ async function addRecords() {
   await mongo.connect();
 
   const order = new Order({
-    order_id: 7,
-    table_id: 5, 
+    order_id: 8,
+    table_id: 4, 
     order_items: [],
-    total_cost: 10,
-    tip_amount: 2.00,
+    total_cost: 20,
+    tip_amount: 3.00,
     order_status: 'Pending',
+    email:'vagramsaakyan02@gmail.com',
   });
 
   await order.save();
