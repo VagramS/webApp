@@ -1,12 +1,12 @@
 const express = require('express');
-const mongoose = require('./app/Utils/db/Connection_mongoDB');
+const mongoose = require('../app/Utils/db/Connection_mongoDB');
 // const postgreSQL = require('./app/Utils/db/Connection_postgreSQL');
-const ErrorHandlerMiddleware = require('./app/Utils/Middlewares/ErrorHandler');
+const ErrorHandlerMiddleware = require('../app/Utils/Middlewares/ErrorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const { Admin_Router, Client_Router, Swagger_Router } = require('./app/routes/mainRouter');
+const { Admin_Router, Client_Router, Swagger_Router } = require('../app/routes/mainRouter');
 
 app.use(express.json());
 
