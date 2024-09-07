@@ -1,14 +1,15 @@
 const { Client } = require('pg');
 const fs = require('fs');
+require('dotenv').config();
 
 const dbFile = 'app/Utils/db/webApp.json';
 
 const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'webApp',
-  password: 'postgres',
-  port: 5432,
+  user: process.env.POSTGRES_USERNAME,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+  port: process.env.POSTGRES_PORT,
 });
 
 function connectToPostgreSQL() {

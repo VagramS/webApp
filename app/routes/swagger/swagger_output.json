@@ -20,13 +20,21 @@
     }
   },
   "paths": {
-    "/client/menu/categories": {
+    "/client/menu/categories/{tableid}": {
       "get": {
         "tags": [
           "Client / Menu"
         ],
         "summary": "Display all categories",
         "description": "Display all available categories (Snacks, Salads, Main, Drinks… etc).",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -251,6 +259,32 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        },
+        "security": []
+      }
+    },
+    "/client/order/payment/{orderid}": {
+      "post": {
+        "tags": [
+          "Client / Order"
+        ],
+        "summary": "Process the payment",
+        "description": "Process the payment for the order.",
+        "parameters": [
+          {
+            "name": "orderid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "security": []
@@ -754,6 +788,25 @@
         ]
       }
     },
+    "/admin/tables/all": {
+      "get": {
+        "tags": [
+          "Admin / Table Manager"
+        ],
+        "summary": "Get all tables",
+        "description": "Allow admin to get all tables",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/admin/tables/create": {
       "post": {
         "tags": [
@@ -772,6 +825,9 @@
                   "example": "any"
                 },
                 "seats": {
+                  "example": "any"
+                },
+                "is_available": {
                   "example": "any"
                 }
               }
@@ -811,6 +867,9 @@
               "type": "object",
               "properties": {
                 "seats": {
+                  "example": "any"
+                },
+                "is_available": {
                   "example": "any"
                 }
               }

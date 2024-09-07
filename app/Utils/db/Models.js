@@ -108,7 +108,7 @@ const AdminUser = mongoose.model('AdminUser', AdminUserSchema);
 const TableSchema = new Schema({
   table_id: { type: Number, required: true, unique: true },
   seats: { type: Number, required: true },
-  is_avaliable: { type: Boolean, default: true },
+  is_available: { type: Boolean, default: true },
   url: { type: String, required: true, unique: true },
   qr_code_url: { type: String, unique: true },
 }, { versionKey: false });

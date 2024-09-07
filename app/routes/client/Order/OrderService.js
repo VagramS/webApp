@@ -1,13 +1,14 @@
 const schemas = require('../../../Utils/db/Models');
 const { NotFoundError } = require('../../../Utils/Errors/index');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 // Create a transporter object
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'vagramsaakyan02@gmail.com', // Replace with your Mailtrap username
-    pass: 'qxzq iiro ubok zuzu', // Replace with your Mailtrap password
+    user: process.env.EMAIL_ADDRESS, // Replace with your Mailtrap username
+    pass: process.env.EMAIL_PASS, // Replace with your Mailtrap password
   },
   tls: {
     rejectUnauthorized: false, // Ignore self-signed certificates
@@ -52,16 +53,16 @@ const Payment = async (req, res) => {
     const ConfirmationMessage = `
       Order number: ${order.order_id}
       Total cost: ${order.total_cost}$
-      Tip amount: ${order.tip_amount}
+      Tip amount: ${order.tip_amount}$
       Table number: ${order.table_id}
       Status: Paid`;
 
     // Set up email options
     const mailOptions = {
-      from: 'vagramsaakyan02@gmail.com',
+      from: process.env.EMAIL_ADDRESS,
       to: order.email, 
       subject: 'Order Confirmation',
-      text: `Your order has been confirmed!\n\n${ConfirmationMessage}`
+      text: `Your order has been confirmed!\n\n${ConfirmationMessage}\n\nThank you for your order!`
     };
 
     // Send email
