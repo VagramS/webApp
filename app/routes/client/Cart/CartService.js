@@ -2,8 +2,11 @@ const schemas = require('../../../Utils/db/Models');
 const { NotFoundError } = require('../../../Utils/Errors/index');
 
 const DisplayTotalCost = async (meals) => {
+  // Filter out null meals to avoid issues
+  const validMeals = meals.filter(meal => meal !== null);
+
   // Calculate total cost using the meals array passed from ShowCart
-  const totalCost = meals.reduce((sum, meal) => sum + (meal.price * meal.quantity), 0);
+  const totalCost = validMeals.reduce((sum, meal) => sum + (meal.price * meal.quantity), 0);
 
   return `${totalCost.toFixed(2)}$`;
 };
@@ -23,30 +26,31 @@ const ShowCart = async (req, res) => {
   if (cart.cart_items.length === 0)
     return res.status(200).send({ message: `Cart ${id} is empty` });
 
+  // Fetch all the meals in parallel and filter out any null values
   const meals = await Promise.all(
     cart.cart_items.map(async (item) => {
       const meal = await schemas.Meal.findOne({ id: item.meal_id }, {
-        _id: 0, id: 1, name: 1, price: 1, toppings: 1, commet: 1,
+        _id: 0, id: 1, name: 1, price: 1, toppings: 1, comments: 1,
       });
       if (meal) {
         return {
           id: item.meal_id,
           name: meal.name,
           quantity: item.quantity,
-          price: meal.price.toFixed(2),
+          price: parseFloat(meal.price),  // Ensure price is a number
           toppings: meal.toppings,
-          comments: item.comments,
+          comments: item.comments,  // Use "comments" instead of "commet"
         };
       }
-      
-return null;
-    }),
+      return null;  // If meal is not found, return null
+    })
   );
 
+  // Display total cost by passing valid meals
   const formattedTotalCost = await DisplayTotalCost(meals);
-  await cart.save();
 
-  res.status(200).send({ message: 'Cart items showed', meals, total_cost: formattedTotalCost });
+  // No need to save the cart if you're only showing the cart
+  res.status(200).send({ message: 'Cart items showed', meals: meals.filter(meal => meal !== null), total_cost: formattedTotalCost });
 };
 
 const AddToCart = async (req, res) => {
@@ -81,6 +85,62 @@ const AddToCart = async (req, res) => {
   res.status(200).send({ message: 'Product added to cart', meal });
 };
 
+
+const MakeOrder = async (req, res) => {
+  // #swagger.tags = ["Client / Cart"]
+  // #swagger.description = 'Allow users to make an order from the cart.'
+  // #swagger.summary = 'Make an order'
+  // #swagger.security = []
+
+  const tableId = req.params.tableid;
+  const { tip_amount, comment, email } = req.body;
+
+  const cart = await schemas.Cart.findOne({ table_id: tableId });
+
+  if(!tip_amount)
+    cart.tip_amount = 0.00;
+
+  if(!comment)
+    cart.comment = '';
+
+  if(!email || email === '')
+    throw new NotFoundError('Not Found Error', `Email is required`);
+
+  if (!cart)
+    throw new NotFoundError('Not Found Error', `Cart for table ${tableId} not found`);
+
+  if(cart.cart_items.length !== 0)
+  {
+    // Fetch all order IDs
+    const orders = await schemas.Order.find({}, 'order_id');
+    const existingOrderIds = orders.map(order => order.order_id);
+
+    // Find the closest unoccupied order_id starting from 1
+    let newOrderId = 1;
+    while (existingOrderIds.includes(newOrderId)) {
+      newOrderId++;
+    }
+
+    const order = new schemas.Order({
+      order_id: newOrderId,
+      table_id: cart.table_id,
+      order_items: cart.cart_items,
+      total_cost: cart.total_cost,
+      tip_amount: cart.tip_amount,
+      comment: cart.comment,
+      email: email
+    });
+
+    await order.save();
+    await schemas.Cart.deleteOne({ _id: cart._id });
+
+    res.status(200).send({ message: `Order for table ${tableId} has been made`, order });
+  }
+  else
+    throw new NotFoundError('Not Found Error', `Cart for table ${tableId} is empty`);
+}
+
+
 const UpdateCart = async (req, res) => {
   // #swagger.tags = ["Client / Cart"]
   // #swagger.description = 'Ability to update the cart by adjusting the quantity of a product or adding a comment.'
@@ -113,6 +173,8 @@ const UpdateCart = async (req, res) => {
         cart.cart_items[mealIndex].comments = comment;
     }
     await cart.save();
+
+    res.status(200).send({ message: `Product with ID ${mealId} updated in the cart` });
   }
 
   // Creating a custom object to only return specific fields
@@ -159,6 +221,7 @@ const DeleteFromCart = async (req, res) => {
 module.exports = {
   ShowCart,
   AddToCart,
+  MakeOrder,
   UpdateCart,
   DeleteFromCart,
 };

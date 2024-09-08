@@ -45,10 +45,8 @@ const Payment = async (req, res) => {
     if (!order)
       throw new NotFoundError('Not Found Error', 'Order not found');
     
-    if(order.order_status === 'Pending'){
-      order.order_status = 'Paid';
-      await order.save();
-    }
+    order.order_status = 'Paid';
+    await order.save();
   
     const ConfirmationMessage = `
       Order number: ${order.order_id}

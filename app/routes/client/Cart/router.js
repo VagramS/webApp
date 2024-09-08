@@ -5,6 +5,8 @@ router.get('/:tableid', CartService.ShowCart);
 
 router.post('/add/:mealid/:tableid', CartService.AddToCart);
 
+router.post('/makeorder/:tableid', CartService.MakeOrder);
+
 router.patch('/update/:tableid', CartService.UpdateCart);
 
 router.delete('/delete/:mealid/:tableid', CartService.DeleteFromCart);
