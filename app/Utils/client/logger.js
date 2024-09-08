@@ -2,7 +2,7 @@ const fs = require('fs');
 const winston = require('winston');
 const moment = require('moment-timezone');
 
-const logDir = 'logs';
+const logDir = 'log';
 
 // Create the log directory if it does not exist
 if (!fs.existsSync(logDir))

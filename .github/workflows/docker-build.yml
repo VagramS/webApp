@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build and Push Docker Image to ECR
 
 # Trigger the workflow on push or pull request events to the main branch
 on:
@@ -20,23 +20,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Docker
+      # Step 2: Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Step 3: Log in to Docker Hub (Optional, only needed if pushing to Docker Hub)
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # Step 3: Log in to Amazon ECR
+      - name: Log in to Amazon ECR
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 038462760519.dkr.ecr.us-east-1.amazonaws.com
 
-      # Step 4: Build the Docker image
+      # Step 4: Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          docker build -t vahrams/my-webapp:latest .
+          docker build -t 038462760519.dkr.ecr.us-east-1.amazonaws.com/web-app:latest .
 
-      # Step 5: Push the Docker image to Docker Hub (Optional)
-      - name: Push Docker image to Docker Hub
+      # Step 5: Push the Docker image to Amazon ECR
+      - name: Push Docker image to ECR
         run: |
-          docker push vahrams/my-webapp:latest
+          docker push 038462760519.dkr.ecr.us-east-1.amazonaws.com/web-app:latest

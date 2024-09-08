@@ -85,7 +85,6 @@ const AddToCart = async (req, res) => {
   res.status(200).send({ message: 'Product added to cart', meal });
 };
 
-
 const MakeOrder = async (req, res) => {
   // #swagger.tags = ["Client / Cart"]
   // #swagger.description = 'Allow users to make an order from the cart.'
@@ -139,7 +138,6 @@ const MakeOrder = async (req, res) => {
   else
     throw new NotFoundError('Not Found Error', `Cart for table ${tableId} is empty`);
 }
-
 
 const UpdateCart = async (req, res) => {
   // #swagger.tags = ["Client / Cart"]
