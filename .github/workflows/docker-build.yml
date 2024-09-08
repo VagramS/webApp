@@ -34,9 +34,9 @@ jobs:
       # Step 4: Build and tag Docker image
       - name: Build and tag Docker image
         run: |
-          docker build -t 038462760519.dkr.ecr.us-east-1.amazonaws.com/web-app:latest .
+          docker build -t 038462760519.dkr.ecr.us-east-1.amazonaws.com/webapp:latest .
 
       # Step 5: Push the Docker image to Amazon ECR
       - name: Push Docker image to ECR
         run: |
-          docker push 038462760519.dkr.ecr.us-east-1.amazonaws.com/web-app:latest
+          docker push 038462760519.dkr.ecr.us-east-1.amazonaws.com/webapp:latest
