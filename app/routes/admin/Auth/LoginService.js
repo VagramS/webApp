@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const schemas = require('../../../Utils/db/Models');
 const { ConflictError, NotFoundError, UnauthorizedError } = require('../../../Utils/Errors/index');
-const { secret } = require('../../../../config');
+require('dotenv').config();
 
 const Registration = async (req, res) => {
   // #swagger.tags = ['Admin / Auth']
@@ -17,7 +17,7 @@ const Registration = async (req, res) => {
     throw new ConflictError('Conflict Error', 'User already exists');
 
   const hashedPassword = await bcrypt.hash(password, 7);
-  const token = jwt.sign({ username }, secret, process.env.JWT_SECRET, { expiresIn: '6h' });
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '6h' });
   const newAdminUser = new schemas.AdminUser({ username, password: hashedPassword, token });
   await newAdminUser.save();
   
@@ -40,7 +40,7 @@ const Login = async (req, res) => {
   if (!passwordMatch)
     throw new UnauthorizedError('Unauthorized Error', 'Invalid password');
 
-  const token = jwt.sign({ username }, secret, process.env.JWT_SECRET, { expiresIn: '6h' });
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '6h' });
   AdminUser.token = token;
   await AdminUser.save();
 
