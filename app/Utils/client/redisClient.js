@@ -1,7 +1,7 @@
 const redis = require('redis');
 
 const redisClient = redis.createClient({
-  url: 'redis://localhost:6379',  // Use localhost and port 6379 since it's mapped
+  url: 'redis://redis:6379',  // Use localhost and port 6379 since it's mapped
 });
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
