@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const schemas = require('../db/Models');
 const { BadRequestError, UnauthorizedError } = require('../Errors/index');
-const { secret } = require('../../../config');
+require('dotenv').config();
 
 const verifyToken = async (req, res, next) => {
   const authorizationHeader = req.headers?.authorization;
@@ -13,7 +13,7 @@ const verifyToken = async (req, res, next) => {
 
   // check if token expired
   let tokenExpired = false;
-  jwt.verify(token, secret, (err) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err) => {
     if (err) {
       tokenExpired = true;
       throw new UnauthorizedError('Unauthorized Error', 'Token expired');
