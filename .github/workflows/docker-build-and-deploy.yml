@@ -20,13 +20,15 @@ jobs:
       # Step 2: Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_EC2_REGION }}
 
       # Step 3: Log in to Amazon ECR
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-        with:
-          region: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          
+
       # Step 4: Build and tag Docker image
       - name: Build and tag Docker image
         run: |
