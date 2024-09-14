@@ -171,6 +171,47 @@
         "security": []
       }
     },
+    "/client/cart/makeorder/{tableid}": {
+      "post": {
+        "tags": [
+          "Client / Cart"
+        ],
+        "summary": "Make an order",
+        "description": "Allow users to make an order from the cart.",
+        "parameters": [
+          {
+            "name": "tableid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tip_amount": {
+                  "example": "any"
+                },
+                "comment": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": []
+      }
+    },
     "/client/cart/update/{tableid}": {
       "patch": {
         "tags": [
@@ -265,7 +306,7 @@
       }
     },
     "/client/order/payment/{orderid}": {
-      "post": {
+      "patch": {
         "tags": [
           "Client / Order"
         ],
