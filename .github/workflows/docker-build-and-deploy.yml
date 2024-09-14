@@ -24,7 +24,9 @@ jobs:
       # Step 3: Log in to Amazon ECR
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-
+        with:
+          region: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          
       # Step 4: Build and tag Docker image
       - name: Build and tag Docker image
         run: |
