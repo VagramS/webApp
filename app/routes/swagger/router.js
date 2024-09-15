@@ -11,7 +11,7 @@ const doc = {
     description: 'This is a REST API application made with Express. It retrieves data from a MongoDB database and returns it as JSON.',
     version: '1.0.0',
   },
-  host: 'localhost:3001',
+  host: process.env.SWAGGER_URL,
   schemes: ['http', 'https'],
   securityDefinitions: {
     Bearer: {
