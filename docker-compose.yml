@@ -15,7 +15,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_URL: redis://redis:6379
-      PORT: 3000
+      PORT: 80
       SWAGGER_URL: 'ec2-54-226-17-230.compute-1.amazonaws.com'
     ports:
-      - "3000:80"
+      - "80:80"
