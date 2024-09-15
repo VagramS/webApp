@@ -33,14 +33,29 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      #Step 5: Create .env file from repository secrets (to finish)
+      #Step 5: Create .env file from repository secrets
       - name: Create .env file
         run: |
-          echo ${{ secrets.AWS_ACCOUNT_ID }} >> .env
-          echo "REDIS_PORT=6379" >> .env
-          echo "REDIS_URL=redis://redis:6379" >> .env
           echo "PORT=80" >> .env
-          echo "SWAGGER_URL=ec2-54-226-17-230.compute-1.amazonaws.com" >> .env
+          echo "EMAIL_ADDRESS=${{ secrets.EMAIL_ADDRESS }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "POSTGRES_USERNAME=${{ secrets.POSTGRES_USERNAME }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env
+          echo "CLOUDWATCH_LOG_GROUP_NAME=${{ secrets.CLOUDWATCH_LOG_GROUP_NAME }}" >> .env
+          echo "CLOUDWATCH_STREAM_NAME=${{ secrets.CLOUDWATCH_STREAM_NAME }}" >> .env
+          echo "AWS_EC2_REGION=${{ secrets.AWS_EC2_REGION }}" >> .env
+          echo "AWS_ECR_REPOSITORY_NAME=${{ secrets.AWS_ECR_REPOSITORY_NAME }}" >> .env
+          echo "AWS_ECR_REPOSITORY_URI=${{ secrets.AWS_ECR_REPOSITORY_URI }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
+          echo "SWAGGER_URL=${{ secrets.SWAGGER_URL }}" >> .env
 
       # Step 6: Build and tag Docker image
       - name: Build and tag Docker image
@@ -62,7 +77,7 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
-      # Step 10: Set up SSH
+      # Step 10: Set up SSH and push on EC2
       - name: Set up SSH
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
