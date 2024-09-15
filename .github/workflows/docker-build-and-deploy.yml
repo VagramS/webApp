@@ -69,22 +69,10 @@ jobs:
           chmod 400 private_key.pem
           set -x
           SSH_OPTIONS="-i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+          sudo systemctl start docker
           scp $SSH_OPTIONS docker-compose.yml ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/docker-compose.yml
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose stop || true"
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker system prune -a --volumes -f || true"
-        env:
-          SSH_CERTIFICATE: ${{ secrets.EC2_SSH_KEY }}
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "aws ecr get-login-password | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}"
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose up -d || true"
 
-      # Step 11: Deploy to EC2
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ec2-54-226-17-230.compute-1.amazonaws.com
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo systemctl start docker
-            sudo aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-            sudo docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
-            docker-compose down || true
-            docker-compose up || true
