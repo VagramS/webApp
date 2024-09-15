@@ -15,11 +15,10 @@ const ErrorHandlerMiddleware = (error, req, res, next) => {
     || error instanceof NotFoundError
     || error instanceof UnauthorizedError) {
     logger.error(error.message);
-    return res.status(error.statusCode).send({ ...error });
-  } 
-  else {
+    res.status(error.statusCode).send({ ...error });
+  } else {
     logger.error(error.message);
-    return res.status(500).send({ statusCode: 500, message: 'Server error occurred. Try again later.', error: error.message });
+    res.status(500).send({ statusCode: 500, message: 'Server error occured. Try again later.', error: error.message });
   }
 };
 
