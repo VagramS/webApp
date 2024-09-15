@@ -57,3 +57,4 @@ jobs:
             docker stop webapp || true
             docker rm webapp || true
             docker run -d --name webapp -p 3001:3001 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
+            
