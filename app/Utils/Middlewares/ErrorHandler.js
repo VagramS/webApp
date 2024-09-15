@@ -9,16 +9,17 @@ const {
 const logger = require('../client/logger');
 
 // Error handler middleware.
-const ErrorHandlerMiddleware = (error, req, res) => {
+const ErrorHandlerMiddleware = (error, req, res, next) => {
   if (error instanceof BadRequestError || error instanceof ConflictError
     || error instanceof ForbiddenError || error instanceof InternalServerError
     || error instanceof NotFoundError
     || error instanceof UnauthorizedError) {
     logger.error(error.message);
-    res.status(error.statusCode).send({ ...error });
-  } else {
+    return res.status(error.statusCode).send({ ...error });
+  } 
+  else {
     logger.error(error.message);
-    res.status(500).send({ statusCode: 500, message: 'Server error occured. Try again later.', error: error.message });
+    return res.status(500).send({ statusCode: 500, message: 'Server error occurred. Try again later.', error: error.message });
   }
 };
 
