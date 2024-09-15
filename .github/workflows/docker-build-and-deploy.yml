@@ -1,4 +1,4 @@
-name: Build, Push Docker Image to ECR, and Deploy to EC2
+name: Build, Test, Push Docker Image to ECR, and Deploy to EC2
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-test-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,14 +37,23 @@ jobs:
       - name: Build and tag Docker image
         run: |
           docker build -t webapp:latest .
+
+      # Step 6: Run tests
+      - name: Run tests
+        run: |
+          docker run --rm webapp:latest npm test
+
+      # Step 7: Tag the image for ECR
+      - name: Tag image for ECR
+        run: |
           docker tag webapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
-      # Step 6: Push the Docker image to Amazon ECR
+      # Step 8: Push the Docker image to Amazon ECR
       - name: Push Docker image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
-      # Step 7: Deploy to EC2
+      # Step 9: Deploy to EC2
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -53,9 +62,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo systemctl start docker
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-            docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
-            docker stop webapp || true
-            docker rm webapp || true
-            docker run -d --name webapp -p 3001:3001 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
-            
+            sudo aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+            sudo docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
+            sudo docker stop webapp || true
+            sudo docker rm webapp || true
+            sudo docker run -d --name webapp -p 3001:3001 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
