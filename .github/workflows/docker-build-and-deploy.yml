@@ -70,6 +70,8 @@ jobs:
           set -x
           SSH_OPTIONS="-i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
           scp $SSH_OPTIONS docker-compose.yml ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/docker-compose.yml
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose stop || true"
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker system prune -a --volumes -f || true"
         env:
           SSH_CERTIFICATE: ${{ secrets.EC2_SSH_KEY }}
 
