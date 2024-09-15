@@ -62,15 +62,7 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
-      # Step 10: Set up SSH
-      - name: Set up SSH
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 400 private_key.pem
-        env:
-          SSH_CERTIFICATE: ${{ secrets.EC2_SSH_KEY }}
-
-      # Step 11: Deploy to EC2
+      # Step 10: Deploy to EC2
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -78,6 +70,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+            chmod 400 private_key.pem
             set -x
             SSH_OPTIONS="-i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
             scp $SSH_OPTIONS docker-compose.yml ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/docker-compose.yml
