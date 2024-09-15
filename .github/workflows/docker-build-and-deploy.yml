@@ -73,5 +73,5 @@ jobs:
             sudo systemctl start docker
             sudo aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
             sudo docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
-            sudo docker-compose down || true
-            sudo docker-compose up || true
+            docker-compose down || true
+            docker-compose up || true
