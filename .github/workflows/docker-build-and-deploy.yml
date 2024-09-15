@@ -73,6 +73,5 @@ jobs:
           scp $SSH_OPTIONS docker-compose.yml ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/docker-compose.yml
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose stop || true"
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker system prune -a --volumes -f || true"
-          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "aws ecr get-login-password | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}"
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}"
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose up -d || true"
-
