@@ -1,3 +1,4 @@
+# Docker compose file
 services:
   redis:
     image: redis:alpine
