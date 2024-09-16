@@ -1,5 +1,5 @@
-const schemas = require('../../../Utils/db/Models');
-const { NotFoundError } = require('../../../Utils/Errors/index');
+const schemas = require('../../../utils/db/Models');
+const { NotFoundError } = require('../../../utils/Errors/index');
 
 const DisplayTotalCost = async (meals) => {
   // Filter out null meals to avoid issues

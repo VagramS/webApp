@@ -1,6 +1,6 @@
-const redisClient = require('../../../Utils/client/redisClient');
-const schemas = require('../../../Utils/db/Models');
-const { NotFoundError } = require('../../../Utils/Errors/index');
+const redisClient = require('../../../utils/client/redisClient');
+const schemas = require('../../../utils/db/Models');
+const { NotFoundError } = require('../../../utils/Errors/index');
 
 const DisplayCategories = async (req, res) => {
   // #swagger.tags = ["Client / Menu"]

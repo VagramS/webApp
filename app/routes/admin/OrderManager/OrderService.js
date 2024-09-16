@@ -1,4 +1,4 @@
-const { NotFoundError } = require('../../../Utils/Errors/index');
+const { NotFoundError } = require('../../../utils/Errors/index');
 // const moment = require('moment-timezone');
 
 const ViewAllActiveOrders = async (req, res) => {

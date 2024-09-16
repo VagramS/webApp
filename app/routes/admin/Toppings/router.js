@@ -1,6 +1,6 @@
 const router = require('express-promise-router')();
 const ToppingsService = require('./ToppingService');
-const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
+const AuthMiddleware = require('../../../utils/Middlewares/AuthMiddleware');
 
 router.get('/view', AuthMiddleware.verifyToken, ToppingsService.ViewAllToppings);
 

@@ -1,6 +1,6 @@
 const router = require('express-promise-router')();
 const MenuService = require('./MenuService');
-const AuthMiddleware = require('../../../Utils/Middlewares/AuthMiddleware');
+const AuthMiddleware = require('../../../utils/Middlewares/AuthMiddleware');
 
 router.post('/create', AuthMiddleware.verifyToken, MenuService.CreateMenuCategory);
 

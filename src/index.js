@@ -1,7 +1,7 @@
 const express = require('express');
-const mongoose = require('../app/Utils/db/Connection_mongoDB');
+const mongoose = require('../app/utils/db/Connection_mongoDB');
 // const postgreSQL = require('./app/Utils/db/Connection_postgreSQL');
-const ErrorHandlerMiddleware = require('../app/Utils/Middlewares/ErrorHandler');
+const ErrorHandlerMiddleware = require('../app/utils/Middlewares/ErrorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3001;

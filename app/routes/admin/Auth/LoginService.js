@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const schemas = require('../../../Utils/db/Models');
-const { ConflictError, NotFoundError, UnauthorizedError } = require('../../../Utils/Errors/index');
+const schemas = require('../../../utils/db/Models');
+const { ConflictError, NotFoundError, UnauthorizedError } = require('../../../utils/Errors/index');
 require('dotenv').config();
 
 const Registration = async (req, res) => {

@@ -78,7 +78,7 @@ jobs:
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
       # Step 10: Set up SSH and push on EC2
-      - name: Set up SSH
+      - name: Set up SSH and push on EC2
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 400 private_key.pem

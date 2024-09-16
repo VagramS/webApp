@@ -1,13 +1,13 @@
 const url = require('url');
 const qrcode = require('qrcode');
 // const { table } = require('console');
-const schemas = require('../../../Utils/db/Models');
+const schemas = require('../../../utils/db/Models');
 const {
   BadRequestError,
   ConflictError,
   InternalServerError,
   NotFoundError,
-} = require('../../../Utils/Errors/index');
+} = require('../../../utils/Errors/index');
 
 const now = new Date();
 const offset = now.getTimezoneOffset(); // Offset in minutes

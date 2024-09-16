@@ -1,6 +1,6 @@
-const redisClient = require('../../../Utils/client/redisClient');
-const schemas = require('../../../Utils/db/Models');
-const { BadRequestError, ConflictError, NotFoundError } = require('../../../Utils/Errors/index');
+const redisClient = require('../../../utils/client/redisClient');
+const schemas = require('../../../utils/db/Models');
+const { BadRequestError, ConflictError, NotFoundError } = require('../../../utils/Errors/index');
 
 const CreateMenuCategory = async (req, res) => {
   // #swagger.tags = ['Admin / Menu Manager']
