@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('../app/utils/db/Connection_mongoDB');
-// const postgreSQL = require('./app/Utils/db/Connection_postgreSQL');
 const ErrorHandlerMiddleware = require('../app/utils/Middlewares/ErrorHandler');
+require('dotenv').config(); 
 
 const app = express();
 const PORT = process.env.PORT || 3001;
