@@ -4,7 +4,7 @@ const ErrorHandlerMiddleware = require('../app/utils/Middlewares/ErrorHandler');
 require('dotenv').config(); 
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const { Admin_Router, Client_Router, Swagger_Router } = require('../app/routes/mainRouter');
 

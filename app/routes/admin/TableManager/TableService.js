@@ -55,7 +55,7 @@ const CreateTable = async (req, res) => {
   const menuPageUrl = url.format({
     protocol: 'http',
     hostname: 'localhost',
-    port: 3001,
+    port: 3000,
     pathname: `client/menu/categories/${table_id}`, // Include table_id to make it unique
   });
 

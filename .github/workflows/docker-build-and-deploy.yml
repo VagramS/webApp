@@ -36,7 +36,7 @@ jobs:
       #Step 5: Create .env file from repository secrets
       - name: Create .env file
         run: |
-          echo "PORT=80" >> .env
+          echo "PORT=3000" >> .env
           echo "EMAIL_ADDRESS=${{ secrets.EMAIL_ADDRESS }}" >> .env
           echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
