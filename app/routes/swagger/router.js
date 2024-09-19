@@ -30,11 +30,10 @@ const swaggerOptions = {
   swaggerOptions: {
     requestInterceptor: (req) => {
       const token = req.headers.Authorization || '';
-      if (token && !token.startsWith('Bearer ')) {
+      if (token && !token.startsWith('Bearer ')) 
         req.headers.Authorization = `Bearer ${token}`;
-      }
-      
-return req;
+
+      return req;
     },
   },
 };
@@ -44,6 +43,6 @@ const endpointsFiles = ['app/routes/mainRouter.js'];
 
 // swaggerAutogen(outputFile, endpointsFiles, doc);
 
-router.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc, swaggerOptions));
+router.use('', swaggerUI.serve, swaggerUI.setup(swaggerDoc, swaggerOptions));
 
 module.exports = { Swagger_Router: router };
