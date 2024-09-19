@@ -4,6 +4,7 @@ const swaggerUI = require('swagger-ui-express');
 const options = { disableLogs: true };
 const swaggerAutogen = require('swagger-autogen')(options);
 const swaggerDoc = require('./swagger_output.json');
+require('dotenv').config(); 
 
 const doc = {
   info: {
@@ -41,7 +42,11 @@ const swaggerOptions = {
 const outputFile = './app/routes/swagger/swagger_output.json';
 const endpointsFiles = ['app/routes/mainRouter.js'];
 
-// swaggerAutogen(outputFile, endpointsFiles, doc);
+setTimeout(() => {
+  swaggerAutogen(outputFile, endpointsFiles, doc);
+}, 1000 * 60 * 60 * 6);
+
+//swaggerAutogen(outputFile, endpointsFiles, doc);
 
 router.use('', swaggerUI.serve, swaggerUI.setup(swaggerDoc, swaggerOptions));
 
