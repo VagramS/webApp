@@ -44,7 +44,7 @@ const endpointsFiles = ['app/routes/mainRouter.js'];
 
 setTimeout(() => {
   swaggerAutogen(outputFile, endpointsFiles, doc);
-}, 1000 * 60 * 60);
+}, 1000 * 60);
 
 //swaggerAutogen(outputFile, endpointsFiles, doc);
 
