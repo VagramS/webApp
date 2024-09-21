@@ -6,13 +6,15 @@ const swaggerAutogen = require('swagger-autogen')(options);
 const swaggerDoc = require('./swagger_output.json');
 require('dotenv').config(); 
 
+const SWAGGER_URL = process.env.SWAGGER_URL || 'localhost:3000';
+
 const doc = {
   info: {
     title: 'API Documentation for Food Ordering System',
     description: 'This is a REST API application made with Express. It retrieves data from a MongoDB database and returns it as JSON.',
     version: '1.0.0',
   },
-  host: process.env.SWAGGER_URL,
+  host: SWAGGER_URL,
   schemes: ['http', 'https'],
   securityDefinitions: {
     Bearer: {
