@@ -6,7 +6,7 @@ const swaggerAutogen = require('swagger-autogen')(options);
 const swaggerDoc = require('./swagger_output.json');
 require('dotenv').config(); 
 
-const SWAGGER_URL = 'localhost:3000';
+const SWAGGER_URL = 'localhost:3000' || process.env.SWAGGER_URL;
 
 const doc = {
   info: {
