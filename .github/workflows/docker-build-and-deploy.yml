@@ -33,7 +33,7 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      #Step 5: Create .env file from repository secrets
+      # Step 5: Create .env file from repository secrets, removing unnecessary prefixes from SWAGGER_URL
       - name: Create .env file
         run: |
           echo "PORT=3000" >> .env
@@ -50,7 +50,11 @@ jobs:
           echo "AWS_ECR_REPOSITORY_URI=${{ secrets.AWS_ECR_REPOSITORY_URI }}" >> .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
-          echo "SWAGGER_URL=${{ secrets.SWAGGER_URL }}" >> .env
+
+          # Strip 'http://' or 'https://' from SWAGGER_URL and only keep the domain
+          
+          SWAGGER_URL_STRIPPED=$(echo ${{ secrets.SWAGGER_URL }} | sed 's|^[^/]*//||')
+          echo "SWAGGER_URL=${SWAGGER_URL_STRIPPED}" >> .env
 
       # Step 6: Build and tag Docker image
       - name: Build and tag Docker image
@@ -85,4 +89,3 @@ jobs:
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker system prune -a --volumes -f || true"
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}"
           ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose up -d || true"
-          docker-compose up
