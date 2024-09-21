@@ -6,7 +6,7 @@ const swaggerAutogen = require('swagger-autogen')(options);
 const swaggerDoc = require('./swagger_output.json');
 require('dotenv').config(); 
 
-const SWAGGER_URL = process.env.SWAGGER_URL || 'localhost:3000';
+const SWAGGER_URL = 'localhost:3000';
 
 const doc = {
   info: {
@@ -46,7 +46,7 @@ const endpointsFiles = ['app/routes/mainRouter.js'];
 
 setTimeout(() => {
   swaggerAutogen(outputFile, endpointsFiles, doc);
-}, 1000 * 60 * 60 * 3);
+}, 1000 * 60);
 
 //swaggerAutogen(outputFile, endpointsFiles, doc);
 
