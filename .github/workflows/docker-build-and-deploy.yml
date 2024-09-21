@@ -33,7 +33,7 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      # Step 5: Create .env file from repository secrets, removing unnecessary prefixes from SWAGGER_URL
+      # Step 5: Create .env file for Docker Compose (correctly strip 'http://' or 'https://')
       - name: Create .env file
         run: |
           echo "PORT=3000" >> .env
@@ -50,11 +50,8 @@ jobs:
           echo "AWS_ECR_REPOSITORY_URI=${{ secrets.AWS_ECR_REPOSITORY_URI }}" >> .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
-
-          # Strip 'http://' or 'https://' from SWAGGER_URL and only keep the domain
-          
-          SWAGGER_URL_STRIPPED=$(echo ${{ secrets.SWAGGER_URL }} | sed 's|^[^/]*//||')
-          echo "SWAGGER_URL=${SWAGGER_URL_STRIPPED}" >> .env
+          # Set SWAGGER_URL for EC2 without 'http://'
+          echo "SWAGGER_URL=$(echo ${{ secrets.SWAGGER_URL }} | sed 's|^[^/]*//||')" >> .env
 
       # Step 6: Build and tag Docker image
       - name: Build and tag Docker image
@@ -76,16 +73,13 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/webapp:latest
 
-      # Step 10: Set up SSH and push on EC2
-      - name: Set up SSH and push on EC2
+      # Step 10: Set up SSH and run docker-compose up on EC2
+      - name: Deploy to EC2 and Run Docker Compose
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 400 private_key.pem
-          set -x
           SSH_OPTIONS="-i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-          sudo systemctl start docker
           scp $SSH_OPTIONS docker-compose.yml ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/docker-compose.yml
-          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose stop || true"
-          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker system prune -a --volumes -f || true"
-          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}"
-          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose up -d || true"
+          scp $SSH_OPTIONS .env ec2-user@${{ secrets.SSH_SERVER }}:/home/ec2-user/.env
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose down || true"
+          ssh $SSH_OPTIONS ec2-user@${{ secrets.SSH_SERVER }} "docker-compose up -d"
